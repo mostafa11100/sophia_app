@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "745488927608",
+    "project_id": "sophia-chat",
+    "storage_bucket": "sophia-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745488927608:android:7c217acd9c786201c4968d",
+        "android_client_info": {
+          "package_name": "com.example.sophia_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxeSorF9ZB8SANZUpNLknGiQTGKEy6ngY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
