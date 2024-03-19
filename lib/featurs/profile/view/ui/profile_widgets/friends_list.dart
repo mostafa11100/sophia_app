@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 import 'package:sophia_chat/featurs/profile/view/ui/profile_widgets/seemore.dart';
 
@@ -7,9 +8,7 @@ Widget friendslist() {
     return Container(
       //  height: 100,
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(5)),
-      margin: const EdgeInsets.symmetric(vertical: 8),
+
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       child: Column(
         children: [
@@ -35,28 +34,32 @@ Widget friendslist() {
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: 60,
+            height: 55,
             child: ListView.builder(
                 padding: EdgeInsetsDirectional.zero,
-                itemCount: 5,
+                itemCount: 10,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (c, i) {
-                  if (i == 4) {
-                    return Padding(
-                      padding: const EdgeInsets.all(3.8),
-                      child: seemore(),
-                    );
-                  } else {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 3.8),
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            "https://firebasestorage.googleapis.com/v0/b/sophia-chat.appspot.com/o/profile_photo.PNG?alt=media&token=97cb0f47-420b-4985-8d5e-cfb2b42f8752"),
-                        radius: 28,
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                  }
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 3.8),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        const CircleAvatar(
+                          backgroundImage: NetworkImage(
+                              "https://firebasestorage.googleapis.com/v0/b/sophia-chat.appspot.com/o/profile_photo.PNG?alt=media&token=97cb0f47-420b-4985-8d5e-cfb2b42f8752"),
+                          radius: 26,
+                        ),
+                        Positioned(
+                            left: 40,
+                            top: 39,
+                            child: CircleAvatar(
+                              radius: 6,
+                              backgroundColor: ColorApp.primarycolor,
+                            ))
+                      ],
+                    ),
+                  );
                 }),
           ),
         ],

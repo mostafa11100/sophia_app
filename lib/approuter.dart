@@ -6,6 +6,7 @@ import 'package:sophia_chat/featurs/auth/sign_up/view/ui/sign_up_screen.dart';
 import 'package:sophia_chat/featurs/auth/verify_passowrd/view/ui/forget_passowrd_screen.dart';
 import 'package:sophia_chat/featurs/chat/chat_home_screen.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen.dart';
+import 'package:sophia_chat/featurs/chat/friend_profile/view/ui/profilefriend_screen.dart';
 import 'package:sophia_chat/featurs/home/view/ui/home_screen.dart';
 import 'package:sophia_chat/featurs/profile/view/ui/profile_screen.dart';
 
@@ -16,7 +17,8 @@ class approuter {
   static String chat = "/chat";
   static String signup = "/signup";
 
-  static String login = "/";
+  static String login = "/login";
+  static String profilefriend = "/";
   static String gender = "/gender";
 
   static String verifyemail = "/verifyemail";
@@ -66,5 +68,10 @@ class approuter {
                 usermodel: s.extra as UserModel,
               );
             }),
+        GoRoute(
+            path: profilefriend,
+            builder: (c, s) {
+              return ProfileFriendScreen();
+            })
       ]);
 }
