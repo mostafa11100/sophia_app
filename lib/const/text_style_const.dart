@@ -36,7 +36,6 @@ class TextStyleConst {
   );
   static TextStyle textstyle20 = const TextStyle(
     fontSize: 20,
-    fontWeight: FontWeight.bold,
     color: Colors.black,
   );
   static TextStyle textstyle21 = const TextStyle(

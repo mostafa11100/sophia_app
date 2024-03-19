@@ -11,7 +11,7 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  double op = 1.0;
+  bool op = true;
   @override
   void initState() {
     widget.controller!.addListener(() {
@@ -19,9 +19,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
         print(op);
 
         if (widget.controller!.offset >= 20) {
-          op = 0.0;
+          op = false;
         } else {
-          op = 1.0;
+          op = true;
         }
       });
     });
@@ -37,9 +37,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
       color: ColorApp.primarycolor,
       child: Align(
           alignment: Alignment.topLeft,
-          child: AnimatedOpacity(
-              duration: const Duration(microseconds: 150),
-              opacity: op,
+          child: Visibility(
+              //duration: const Duration(microseconds: 150),
+              visible: op,
               child: const Row(
                 children: [
                   Text(
