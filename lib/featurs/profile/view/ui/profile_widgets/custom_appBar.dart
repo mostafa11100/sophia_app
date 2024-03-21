@@ -29,6 +29,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
   }
 
   @override
+  void dispose() {
+    print("dispose");
+    widget.controller!.removeListener(() {
+      print("remove");
+    });
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),

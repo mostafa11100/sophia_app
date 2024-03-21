@@ -8,6 +8,6 @@ class GroupModel {
   GroupModel.fromjson({json}) {
     name = json['name'];
     image = json['image'];
-    members = json['members'];
+    if (json['members'] != null) members = json['members'];
   }
 }

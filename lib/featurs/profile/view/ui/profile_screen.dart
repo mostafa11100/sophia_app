@@ -7,15 +7,25 @@ import 'package:sophia_chat/featurs/profile/view/ui/profile_widgets/custom_appBa
 import 'package:sophia_chat/featurs/profile/view/ui/profile_widgets/custom_gridview.dart';
 import 'package:sophia_chat/featurs/profile/view/ui/profile_widgets/friends_list.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   ProfileScreen({super.key});
 
-  ScrollController? controller = ScrollController();
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  ScrollController? controller;
+  @override
+  void initState() {
+    controller = ScrollController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 204, 203, 203),
+        backgroundColor: Color.fromARGB(255, 233, 230, 230),
         body: Stack(
           children: [
             CustomAppBar(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/view/ui/chat_screen_widget/storys_list.dart';
+import 'package:sophia_chat/featurs/chat/friend_profile/view/ui/profile_friend_widget/friendlist.dart';
 import 'package:sophia_chat/featurs/profile/view/ui/profile_widgets/friends_list.dart';
 
 class ProfileFriendScreen extends StatelessWidget {
@@ -113,7 +114,7 @@ class ProfileFriendScreen extends StatelessWidget {
         SizedBox(
           height: 5,
         ),
-        friendslist(),
+        friendslistwidget(),
         SizedBox(
           height: 0,
         ),

@@ -13,12 +13,12 @@ import 'package:sophia_chat/featurs/profile/view/ui/profile_screen.dart';
 // ignore: camel_case_types
 class approuter {
   static SharedPref? pref;
-  static String home = "/home";
+  static String home = "/";
   static String chat = "/chat";
   static String signup = "/signup";
 
   static String login = "/login";
-  static String profilefriend = "/";
+  static String profilefriend = "/profilef";
   static String gender = "/gender";
 
   static String verifyemail = "/verifyemail";
