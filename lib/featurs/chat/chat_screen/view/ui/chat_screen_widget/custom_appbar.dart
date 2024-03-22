@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sophia_chat/approuter.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 
-AppBar customappbar({name = "", state = "", String url = ""}) {
+Widget customappbar({name = "", state = "", String url = ""}) {
   return AppBar(
     centerTitle: false,
     backgroundColor: ColorApp.primarycolor,
@@ -20,34 +21,41 @@ AppBar customappbar({name = "", state = "", String url = ""}) {
       );
     }),
     titleSpacing: 0,
-    title: Row(
-      children: [
-        CircleAvatar(
-            radius: 18,
-            backgroundColor: Colors.red,
-            backgroundImage: NetworkImage(url)),
-        SizedBox(
-          width: 10,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              name,
-              style: TextStyleConst.textstyle22.copyWith(
-                color: Colors.white,
+    title: Builder(builder: (context) {
+      return Row(
+        children: [
+          InkWell(
+            onTap: () {
+              GoRouter.of(context).push(approuter.profilefriend);
+            },
+            child: CircleAvatar(
+                radius: 18,
+                backgroundColor: Colors.red,
+                backgroundImage: NetworkImage(url)),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: TextStyleConst.textstyle22.copyWith(
+                  color: Colors.white,
+                ),
               ),
-            ),
-            Text(
-              state,
-              style: TextStyleConst.textstyle15.copyWith(
-                color: Colors.white,
+              Text(
+                state,
+                style: TextStyleConst.textstyle15.copyWith(
+                  color: Colors.white,
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
-    ),
+            ],
+          ),
+        ],
+      );
+    }),
     actions: [
       InkWell(
         onTap: () {},

@@ -55,7 +55,7 @@ class GetDataFromFirebase {
 
       return Left(result);
     } on FirebaseException catch (e) {
-      print("yesss get data done=================== ${e.message}");
+      print("yesss get data not  done=================== ${e.message}");
       return Right(ExeptionsFirebase.fromejson(e.message));
     } catch (e) {
       print("yesss get data done =================== ${e.toString()}");

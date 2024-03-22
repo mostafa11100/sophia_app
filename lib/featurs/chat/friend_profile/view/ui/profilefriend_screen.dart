@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/view/ui/chat_screen_widget/storys_list.dart';
@@ -22,14 +23,19 @@ class ProfileFriendScreen extends StatelessWidget {
                       "https://firebasestorage.googleapis.com/v0/b/sophia-chat.appspot.com/o/profile_photo.PNG?alt=media&token=97cb0f47-420b-4985-8d5e-cfb2b42f8752"))),
           height: (MediaQuery.of(context).size.height / 2) - 20,
           width: MediaQuery.of(context).size.width,
-          child: const Align(
+          child: Align(
             alignment: Alignment.topCenter,
             child: Row(
               children: [
-                Icon(
-                  Icons.arrow_back,
-                  size: 35,
-                  color: Colors.white,
+                InkWell(
+                  onTap: () {
+                    GoRouter.of(context).pop();
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: 35,
+                    color: Colors.white,
+                  ),
                 ),
                 Spacer(),
                 Icon(Icons.more_vert, size: 35, color: Colors.white),

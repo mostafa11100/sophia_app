@@ -37,23 +37,23 @@ class ChatsCubit extends Cubit<ChatsState> {
     //   emit(Chatfail(right.eror!));
     // });
 
-    stream1 = FirebaseFirestore.instance
-        .collection("chats")
-        .snapshots()
-        .listen((event) async {
-      pref = SharedPref();
+    // stream1 = FirebaseFirestore.instance
+    //     .collection("chats")
+    //     .snapshots()
+    //     .listen((event) async {
+    pref = SharedPref();
 
-      var uid = await pref!.getfromshared('uid');
-      Either<List<UserAndChatModel>, ExeptionsFirebase>? result =
-          await getFromFireStore.getdata(uid1: "jTfN06KUljT13n8wK75mkwPakGm1");
+    var uid = await pref!.getfromshared('uid');
+    Either<List<UserAndChatModel>, ExeptionsFirebase>? result =
+        await getFromFireStore.getdata(uid1: "jTfN06KUljT13n8wK75mkwPakGm1");
 
-      result!.fold((left) {
-        emit(ChatsInitial(left));
-        emit(Chatssuccess(left));
-      }, (right) {
-        emit(Chatfail(right.eror!));
-      });
+    result!.fold((left) {
+      emit(ChatsInitial(left));
+      emit(Chatssuccess(left));
+    }, (right) {
+      emit(Chatfail(right.eror!));
     });
+    //   });
   }
 
   @override

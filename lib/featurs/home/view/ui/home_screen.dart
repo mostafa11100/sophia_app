@@ -41,7 +41,7 @@ Widget custombuttombar(TabController control) {
             (states) => Color(Colors.white.value)),
         labelColor: ColorApp.primarycolor,
         dividerColor: Colors.white,
-        padding: EdgeInsets.symmetric(vertical: 12),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         indicatorColor: Colors.white,
         controller: control,
         tabs: const [

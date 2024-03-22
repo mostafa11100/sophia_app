@@ -26,7 +26,7 @@ class GroupScreen extends StatelessWidget {
             itemBuilder: (c, i) {
               return i == 0
                   ? CreateGroupeICon()
-                  : GroupIcon(GroupModel.fromjson(json: {}));
+                  : GroupIcon(GroupModel.fromjson(json: null));
             }),
       ),
     );

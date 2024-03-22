@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sophia_chat/approuter.dart';
 import 'package:sophia_chat/const/color_app.dart';
+import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/draglescroll.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/time_custom.dart';
 
 class MessageContainerCustomuser2 extends StatelessWidget {
@@ -23,10 +26,25 @@ class MessageContainerCustomuser2 extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: CircleAvatar(
-                  radius: 20,
-                  backgroundColor: Colors.red,
-                  backgroundImage: NetworkImage(url)),
+              child: InkWell(
+                onTap: () {
+                  Scaffold.of(context).showBottomSheet(elevation: 20,
+                      (context) {
+                    return DraggableScrollViewCustom();
+                  });
+                  // showBottomSheet(
+                  //     elevation: 20.0,
+                  //     context: context,
+                  //     builder: (c) {
+                  //       return DraggableScrollViewCustom();
+                  //     });
+                  //  GoRouter.of(context).push(approuter.profilefriend);
+                },
+                child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Colors.red,
+                    backgroundImage: NetworkImage(url)),
+              ),
             ),
             Container(
               constraints: BoxConstraints(
@@ -38,7 +56,7 @@ class MessageContainerCustomuser2 extends StatelessWidget {
                     topRight: Radius.circular(20),
                     bottomRight: Radius.circular(20)),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
               child: Text(message,
                   style: const TextStyle(
                       fontSize: 17,

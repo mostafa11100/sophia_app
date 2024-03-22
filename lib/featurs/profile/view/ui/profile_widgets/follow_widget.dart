@@ -7,11 +7,12 @@ Widget Follow(n, t) {
     children: [
       Text(
         n.toString(),
-        style: TextStyleConst.textstyle16.copyWith(fontWeight: FontWeight.w700),
+        style: TextStyleConst.textstyle17.copyWith(fontWeight: FontWeight.w900),
       ),
       Text(
         t,
-        style: TextStyleConst.textstyle15.copyWith(color: Colors.grey),
+        style: TextStyleConst.textstyle16
+            .copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
       ),
     ],
   );

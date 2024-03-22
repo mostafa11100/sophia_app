@@ -19,63 +19,65 @@ class ChatScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => GetChatCubit()..getchat(usermodel.uid),
       child: Scaffold(
-          appBar: customappbar(
-              name: usermodel.name, state: "active now", url: usermodel.photo!),
           body: SingleChildScrollView(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height - 80,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      child: BlocBuilder<GetChatCubit, GetChatState>(
-                        builder: (context, state) {
-                          if (state is GetChatsuccess) {
-                            return ListView.builder(
-                                reverse: true,
-                                itemCount: state.chat.message!.length,
-                                itemBuilder: (c, i) {
-                                  return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0, vertical: 2),
-                                      child: state.chat.message![i].uid ==
-                                              usermodel.uid
-                                          ? MessageContainerCustomuser2(
-                                              url: usermodel.photo!,
-                                              state: false,
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              customappbar(
+                  name: usermodel.name,
+                  state: "active now",
+                  url: usermodel.photo!),
+              Expanded(
+                child: SizedBox(
+                  child: BlocBuilder<GetChatCubit, GetChatState>(
+                    builder: (context, state) {
+                      if (state is GetChatsuccess) {
+                        return ListView.builder(
+                            reverse: true,
+                            itemCount: state.chat.message!.length,
+                            itemBuilder: (c, i) {
+                              return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0, vertical: 2),
+                                  child: state.chat.message![i].uid ==
+                                          usermodel.uid
+                                      ? MessageContainerCustomuser2(
+                                          url: usermodel.photo!,
+                                          state: false,
+                                          message:
+                                              state.chat.message![i].message!)
+                                      : Column(
+                                          children: [
+                                            MessageContainerCustomuser1(
                                               message: state
-                                                  .chat.message![i].message!)
-                                          : Column(
-                                              children: [
-                                                MessageContainerCustomuser1(
-                                                  message: state.chat
-                                                      .message![i].message!,
-                                                ),
-                                                Align(
-                                                    alignment:
-                                                        Alignment.centerRight,
-                                                    child: seen(state
-                                                        .chat.message![i].seen))
-                                              ],
-                                            ));
-                                });
-                          }
+                                                  .chat.message![i].message!,
+                                            ),
+                                            Align(
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                child: seen(state
+                                                    .chat.message![i].seen))
+                                          ],
+                                        ));
+                            });
+                      }
 
-                          if (state is GetChatfail) {
-                            return Center(
-                              child: Text(state.error),
-                            );
-                          }
-                          return Container();
-                        },
-                      ),
-                    ),
+                      if (state is GetChatfail) {
+                        return Center(
+                          child: Text(state.error),
+                        );
+                      }
+                      return Container();
+                    },
                   ),
-                  const CustomTextFeildMessage()
-                ],
+                ),
               ),
-            ),
-          )),
+              const CustomTextFeildMessage()
+            ],
+          ),
+        ),
+      )),
     );
   }
 }
