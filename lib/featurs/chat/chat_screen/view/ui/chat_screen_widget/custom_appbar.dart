@@ -4,7 +4,7 @@ import 'package:sophia_chat/approuter.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 
-Widget customappbar({name = "", state = "", String url = ""}) {
+AppBar customappbar({name = "", state = "", String url = ""}) {
   return AppBar(
     centerTitle: false,
     backgroundColor: ColorApp.primarycolor,

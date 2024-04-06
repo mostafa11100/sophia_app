@@ -8,7 +8,7 @@ class ChatModel {
   ChatModel.fromjson(Map json) {
     uid1 = json['uid1'];
     uid2 = json['uid2'];
-    for (int i = 0; i < json['message'].length; i++) {
+    for (int i = json['message'].length - 1; i >= 0; i--) {
       message!.add(MessageModel.fromjson(json['message'][i]));
     }
   }
@@ -27,7 +27,7 @@ class MessageModel {
   bool? seen;
   String? uid;
   Timestamp? time;
-  Map<String, dynamic>? json;
+  Map<String, dynamic>? json = {};
   MessageModel.fromjson(Map json) {
     call = json['call'];
     image = json['image'];
@@ -39,6 +39,7 @@ class MessageModel {
   }
   MessageModel.tojson(
       {this.call, this.image, this.message, this.seen, this.time, this.uid}) {
+    print(time);
     json?['call'] = call;
     json?['image'] = image;
     json?['message'] = message;

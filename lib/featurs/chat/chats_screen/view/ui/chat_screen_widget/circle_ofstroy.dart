@@ -38,7 +38,9 @@ class CustomCircleAvatarOfStory extends StatelessWidget {
                 children: [
                   CircularProfileAvatar("",
                       backgroundColor: ColorApp.greycolor,
-                      borderColor: listofcolors[models.state!],
+                      borderColor: models.state!
+                          ? ColorApp.primarycolor
+                          : ColorApp.greycolor,
                       radius: 30,
                       borderWidth: 2.3,
                       child: child),
@@ -48,7 +50,8 @@ class CustomCircleAvatarOfStory extends StatelessWidget {
                     child: Visibility(
                       visible: visible,
                       child: CircleAvatar(
-                        backgroundColor: listofcolors[models.state!],
+                        backgroundColor:
+                            models.state! ? ColorApp.primarycolor : Colors.grey,
 
                         radius: 7,
                         // borderWidth: 2,

@@ -28,6 +28,7 @@ class MessageContainerCustomuser2 extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: InkWell(
                 onTap: () {
+                  Scaffold.of(context).showBodyScrim(true, 0.4);
                   Scaffold.of(context).showBottomSheet(elevation: 20,
                       (context) {
                     return DraggableScrollViewCustom();

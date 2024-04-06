@@ -68,7 +68,7 @@ class GetDataFromFirebase {
     try {
       db = FirebaseFirestore.instance;
       DocumentSnapshot<Map<String, dynamic>> result =
-          await db!.collection("user").doc(docs).get();
+          await db!.collection(collection).doc(docs).get();
 
       return Left(result);
     } on FirebaseException catch (e) {

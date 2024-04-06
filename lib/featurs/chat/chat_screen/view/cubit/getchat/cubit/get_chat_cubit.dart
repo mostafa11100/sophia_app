@@ -20,9 +20,8 @@ class GetChatCubit extends Cubit<GetChatState> {
   void getchat(uid2) async {
     db = GetChatFromFireBase();
     try {
-      print("uid2 = = $uid2");
       emit(GetChatlodaing());
-      SharedPref pref = SharedPref();
+      // SharedPref pref = SharedPref();
       //  String uid1 = await pref.getfromshared("uid1");
 
       Either<StreamSubscription<QuerySnapshot<Map<String, dynamic>>>,
@@ -31,22 +30,16 @@ class GetChatCubit extends Cubit<GetChatState> {
 
       re.fold((left) {
         res = left;
-        print("left ");
+
         left.onData((data) {
-          print("ondata");
-          print(data.docs);
-          data.docs.forEach((element) {
-            print(element.data());
-          });
+          String id = data.docs[0].id;
           chat = ChatModel.fromjson(data.docs[0].data());
-          emit(GetChatsuccess(chat!));
+          emit(GetChatsuccess(chat!, id));
         });
       }, (right) {
-        print("error");
         emit(GetChatfail(right.eror!));
       });
     } catch (e) {
-      print("error8");
       emit(GetChatfail(e.toString()));
     }
   }

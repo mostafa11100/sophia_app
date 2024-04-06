@@ -9,7 +9,8 @@ final class GetChatlodaing extends GetChatState {}
 
 final class GetChatsuccess extends GetChatState {
   ChatModel chat;
-  GetChatsuccess(this.chat);
+  String id;
+  GetChatsuccess(this.chat, this.id);
 }
 
 final class GetChatfail extends GetChatState {

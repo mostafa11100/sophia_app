@@ -4,5 +4,6 @@ import 'package:sophia_chat/featurs/chat/chats_screen/data/models/chat_model.dar
 class UserAndChatModel {
   UserModel? userModel;
   ChatModel? chatModel;
+
   UserAndChatModel(this.userModel, this.chatModel);
 }
