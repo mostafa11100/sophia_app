@@ -1,8 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:sophia_chat/approuter.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/draglescroll.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/time_custom.dart';

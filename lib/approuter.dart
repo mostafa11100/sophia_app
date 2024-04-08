@@ -4,12 +4,14 @@ import 'package:sophia_chat/featurs/auth/gender_/data/user_model.dart';
 import 'package:sophia_chat/featurs/auth/gender_/view/ui/gender_screen.dart';
 import 'package:sophia_chat/featurs/auth/sign_up/view/ui/sign_up_screen.dart';
 import 'package:sophia_chat/featurs/auth/verify_passowrd/view/ui/forget_passowrd_screen.dart';
+import 'package:sophia_chat/featurs/chat/chat_home_screen.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/models/list_ofstory.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/view/ui/chat_screen_widget/storyview.dart';
 import 'package:sophia_chat/featurs/chat/friend_profile/view/ui/profilefriend_screen.dart';
 import 'package:sophia_chat/featurs/home/view/ui/home_screen.dart';
 import 'package:sophia_chat/featurs/profile/view/ui/profile_screen.dart';
+import 'package:sophia_chat/testscreen.dart';
 
 // ignore: camel_case_types
 class approuter {

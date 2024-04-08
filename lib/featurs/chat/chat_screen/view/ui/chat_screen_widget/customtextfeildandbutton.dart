@@ -2,11 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sophia_chat/class/alert_dialog.dart';
-import 'package:sophia_chat/class/shared_pref.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/cubit/cubitsendmessage/cubit/send_message_cubit.dart';
+import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/custom_bottom_sheet.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/models/chat_model.dart';
 
 class CustomTextFeildMessage extends StatefulWidget {
@@ -53,7 +52,8 @@ class _CustomTextFeildMessageState extends State<CustomTextFeildMessage> {
   }
 
   choicesendingtype() {
-    showBottomSheet(context: context, builder: (context) => bottomshet());
+    showBottomSheet(
+        context: context, builder: (context) => bottomshet(widget.docs));
   }
 
   @override
@@ -135,109 +135,4 @@ class _CustomTextFeildMessageState extends State<CustomTextFeildMessage> {
       ),
     );
   }
-}
-
-Widget bottomshet() {
-  return Builder(builder: (context) {
-    return Container(
-      constraints: const BoxConstraints(maxHeight: 130),
-      // padding: const EdgeInsets.symmetric(vertical: 15),
-      color: ColorApp.greycolor,
-      child: Center(
-        child: ListView(
-          reverse: true,
-          padding: EdgeInsets.symmetric(horizontal: 5),
-          scrollDirection: Axis.horizontal,
-          children: [
-            typeoffile(
-                title: 'Audio',
-                ontap: () {},
-                icon: const Icon(
-                  Icons.mic,
-                  size: 35,
-                  color: Colors.white,
-                ),
-                color: ColorApp.primarycolor),
-            typeoffile(
-                title: 'Plan',
-                ontap: () {},
-                icon: const Icon(
-                  Icons.redeem,
-                  size: 35,
-                  color: Colors.white,
-                ),
-                color: Colors.orange),
-            typeoffile(
-                title: 'Gif',
-                ontap: () {},
-                icon: const Icon(
-                  Icons.gif,
-                  size: 50,
-                  color: Colors.white,
-                ),
-                color: const Color.fromARGB(255, 255, 115, 0)),
-            typeoffile(
-                title: 'Location',
-                ontap: () {},
-                icon: const Icon(
-                  Icons.location_on,
-                  size: 35,
-                  color: Colors.white,
-                ),
-                color: Color.fromARGB(251, 134, 58, 249)),
-            typeoffile(
-                title: 'Files',
-                ontap: () {},
-                icon: const Icon(
-                  Icons.attach_file_outlined,
-                  size: 35,
-                  color: Colors.white,
-                ),
-                color: Color.fromARGB(255, 251, 28, 99)),
-            typeoffile(
-                title: 'Gallery',
-                ontap: () {},
-                icon: const Icon(
-                  Icons.camera_alt_outlined,
-                  size: 35,
-                  color: Colors.white,
-                ),
-                color: Color.fromARGB(255, 45, 153, 248)),
-          ],
-        ),
-      ),
-    );
-  });
-}
-
-Widget typeoffile(
-    {required String? title,
-    required Function()? ontap,
-    required Icon? icon,
-    required Color color}) {
-  return InkWell(
-    hoverColor: const Color.fromARGB(255, 105, 104, 104),
-    onTap: ontap,
-    child: Padding(
-      padding: const EdgeInsets.all(6.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundColor: color,
-            child: icon,
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          Text(
-            title!,
-            style: TextStyleConst.textstyle15
-                .copyWith(fontWeight: FontWeight.w800),
-          )
-        ],
-      ),
-    ),
-  );
 }

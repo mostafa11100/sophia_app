@@ -11,7 +11,7 @@ class SendMessageCubit extends Cubit<SendMessageState> {
   SendMessageToFireStore? sendmessage;
   void send(docs, MessageModel message) async {
     sendmessage = SendMessageToFireStore();
-    print(message.json);
+
     ExeptionsFirebase? re =
         await sendmessage!.sendmessage(message: message.json, docs: docs);
 

@@ -27,6 +27,7 @@ class MessageModel {
   bool? seen;
   String? uid;
   Timestamp? time;
+  String? type;
   Map<String, dynamic>? json = {};
   MessageModel.fromjson(Map json) {
     call = json['call'];
@@ -34,11 +35,17 @@ class MessageModel {
     message = json['message'];
     seen = json['seen'];
     uid = json['uid'];
-
+    type = json['type'] ?? "message";
     time = json['time'];
   }
   MessageModel.tojson(
-      {this.call, this.image, this.message, this.seen, this.time, this.uid}) {
+      {this.call,
+      this.image,
+      this.message,
+      this.seen,
+      this.time,
+      this.uid,
+      this.type = "message"}) {
     print(time);
     json?['call'] = call;
     json?['image'] = image;
@@ -46,5 +53,6 @@ class MessageModel {
     json?['seen'] = seen;
     json?['time'] = time;
     json?['uid'] = uid;
+    json?['type'] = type;
   }
 }
