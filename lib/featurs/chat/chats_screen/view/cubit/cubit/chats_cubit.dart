@@ -17,6 +17,7 @@ class ChatsCubit extends Cubit<ChatsState> {
   ChatsCubit({required this.getFromFireStore}) : super(ChatsInitial(null));
   @override
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? stream1;
+  bool closecubit = false;
   GetFromFireStore getFromFireStore;
   SharedPref? pref;
   void getdata() async {
@@ -48,10 +49,18 @@ class ChatsCubit extends Cubit<ChatsState> {
         await getFromFireStore.getdata(uid1: "jTfN06KUljT13n8wK75mkwPakGm1");
 
     result!.fold((left) {
-      emit(ChatsInitial(left));
-      emit(Chatssuccess(left));
+      //     print("chat is done ${left[0].userModel!.uid}");
+      if (closecubit == false) {
+        print("close cubit ======= $closecubit");
+        emit(ChatsInitial(left));
+
+        emit(Chatssuccess(left));
+      }
     }, (right) {
-      emit(Chatfail(right.eror!));
+      if (closecubit == false) {
+        print("close cubit ======= $closecubit");
+        emit(Chatfail(right.eror!));
+      }
     });
     //   });
   }
@@ -61,6 +70,8 @@ class ChatsCubit extends Cubit<ChatsState> {
     if (stream1 != null) {
       stream1!.cancel();
     }
+    print("closssssssssed");
+    closecubit = true;
     return super.close();
   }
 }

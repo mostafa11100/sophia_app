@@ -16,7 +16,7 @@ class getuserstory extends RepoGetData {
     String? uid;
     GetDataFromFirebase getdata = GetDataFromFirebase();
     try {
-      Either<QuerySnapshot<Map<String, dynamic>>, ExeptionsFirebase> result =
+      Either<QuerySnapshot<Map>, ExeptionsFirebase> result =
           await getdata.getdata(
               "friends",
               Filter.or(
@@ -33,7 +33,7 @@ class getuserstory extends RepoGetData {
               result = await getdata.getdocsdata("user", uid);
           result.fold((l) {
             print("left ${l.data()}");
-            listofusermodel.add(UserModel.fromjson(l.data()!));
+            listofusermodel.add(UserModel.fromjson(json: l.data()!));
           }, (r) {
             print("left ${r.eror}");
             either = Right(r);

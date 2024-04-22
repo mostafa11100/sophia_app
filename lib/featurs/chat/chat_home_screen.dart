@@ -16,7 +16,8 @@ class _ChathomeState extends State<Chathome>
   TabController? tabController;
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this);
+    tabController =
+        TabController(animationDuration: Duration.zero, length: 3, vsync: this);
     super.initState();
   }
 

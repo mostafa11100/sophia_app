@@ -6,9 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:either_dart/either.dart';
 import 'package:sophia_chat/class/exeptions_firebase.dart';
 import 'package:sophia_chat/class/getdata_formfirebase.dart';
-import 'package:sophia_chat/featurs/auth/gender_/data/user_model.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/models/chat_model.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_chat.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/repos/repo_abstract.dart';
 
 class GetFromFireStore extends RepoGetData {
@@ -84,7 +84,7 @@ class GetFromFireStore extends RepoGetData {
       UserModel user;
       ChatModel chat;
 
-      Either<QuerySnapshot<Map<String, dynamic>>, ExeptionsFirebase> result =
+      Either<QuerySnapshot<Map>, ExeptionsFirebase> result =
           await getdata.getdata(
               "chats",
               Filter.or(
@@ -100,17 +100,16 @@ class GetFromFireStore extends RepoGetData {
 
           Either<DocumentSnapshot<Map<String, dynamic>>, ExeptionsFirebase>?
               re = await getdata.getdocsdata("user", uid);
-
-          re.fold((left) async {
+          await re.fold((left) async {
             user = UserModel.fromjson(json: left.data()!, uid: uid);
 
             userandchat = UserAndChatModel(user, chat);
-
             listofmodel.add(userandchat!);
           }, (right) async {
             eitherofresult = Right(right);
           });
         });
+
         eitherofresult = Left(listofmodel);
       }, (right) async {
         eitherofresult = Right(right);
@@ -118,7 +117,6 @@ class GetFromFireStore extends RepoGetData {
 
       return eitherofresult;
     } catch (e) {
-      print("exep error");
       return Right(ExeptionsFirebase.fromejson(e.toString()));
     }
   }

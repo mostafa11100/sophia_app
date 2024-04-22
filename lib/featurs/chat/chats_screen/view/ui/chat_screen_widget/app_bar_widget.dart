@@ -3,6 +3,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sophia_chat/approuter.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 
@@ -32,7 +34,9 @@ AppBar AppBarChatCustom(context, tabController) {
             );
           }),
       IconButton(
-        onPressed: () {},
+        onPressed: () {
+          GoRouter.of(context).push(approuter.search);
+        },
         icon: const Icon(
           Icons.search,
           color: Colors.white,

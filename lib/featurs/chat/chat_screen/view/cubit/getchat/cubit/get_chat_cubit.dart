@@ -5,10 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:either_dart/either.dart';
 import 'package:meta/meta.dart';
 import 'package:sophia_chat/class/exeptions_firebase.dart';
-import 'package:sophia_chat/class/shared_pref.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/data/Repo/getchat_fromfirebase.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/models/chat_model.dart';
-import 'package:sophia_chat/featurs/chat/chats_screen/data/repos/repo_imp_getfrom_firstore.dart';
 
 part 'get_chat_state.dart';
 

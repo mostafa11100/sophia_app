@@ -10,25 +10,22 @@ class GroupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GetGroupsCubit(),
-      child: Container(
-        color: const Color.fromARGB(207, 229, 230, 231),
-        padding: const EdgeInsets.all(25),
-        child: GridView.builder(
-            itemCount: 10,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisSpacing: 7,
-              mainAxisSpacing: 10,
-              crossAxisCount: 2,
-              mainAxisExtent: 190,
-            ),
-            itemBuilder: (c, i) {
-              return i == 0
-                  ? CreateGroupeICon()
-                  : GroupIcon(GroupModel.fromjson(json: null));
-            }),
-      ),
+    return Container(
+      color: const Color.fromARGB(207, 229, 230, 231),
+      padding: const EdgeInsets.all(25),
+      child: GridView.builder(
+          itemCount: 10,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisSpacing: 7,
+            mainAxisSpacing: 10,
+            crossAxisCount: 2,
+            mainAxisExtent: 190,
+          ),
+          itemBuilder: (c, i) {
+            return i == 0
+                ? CreateGroupeICon()
+                : GroupIcon(GroupModel.fromjson(json: null));
+          }),
     );
   }
 }

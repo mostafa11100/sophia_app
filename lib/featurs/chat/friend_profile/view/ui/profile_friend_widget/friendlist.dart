@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
-import 'package:sophia_chat/featurs/profile/view/ui/profile_widgets/seemore.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 
-Widget friendslistwidget() {
+Widget friendslistwidget(List<UserModel> listoffriends) {
   return Builder(builder: (context) {
     return Container(
       //  height: 100,
@@ -37,7 +37,7 @@ Widget friendslistwidget() {
             height: 55,
             child: ListView.builder(
                 padding: EdgeInsetsDirectional.zero,
-                itemCount: 10,
+                itemCount: listoffriends.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (c, i) {
                   return Padding(
@@ -45,17 +45,18 @@ Widget friendslistwidget() {
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
-                        const CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              "https://firebasestorage.googleapis.com/v0/b/sophia-chat.appspot.com/o/profile_photo.PNG?alt=media&token=97cb0f47-420b-4985-8d5e-cfb2b42f8752"),
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(listoffriends[i].url!),
                           radius: 26,
                         ),
                         Positioned(
-                            left: 40,
-                            top: 39,
+                            left: 39,
+                            top: 338,
                             child: CircleAvatar(
-                              radius: 6,
-                              backgroundColor: ColorApp.primarycolor,
+                              radius: 4,
+                              backgroundColor: listoffriends[i].online!
+                                  ? ColorApp.primarycolor
+                                  : ColorApp.greycolor,
                             ))
                       ],
                     ),

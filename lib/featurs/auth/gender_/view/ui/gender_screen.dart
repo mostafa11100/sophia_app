@@ -10,8 +10,8 @@ import 'package:sophia_chat/class/alert_dialog.dart';
 import 'package:sophia_chat/class/shared_pref.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 import 'package:sophia_chat/featurs/auth/gender_/data/repos/repo_imp_adduser.dart';
-import 'package:sophia_chat/featurs/auth/gender_/data/user_model.dart';
 import 'package:sophia_chat/featurs/auth/gender_/view/cubit/cubit/add_user_data_to_firebase_cubit.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 import 'package:sophia_chat/utilits/custom_elevated_button.dart';
 
 class GenderScreen extends StatelessWidget {

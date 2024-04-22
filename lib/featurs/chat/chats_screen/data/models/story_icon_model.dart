@@ -2,6 +2,7 @@ class StoryModel {
   String? name;
   String? url;
   bool? state;
+
   Map? jsonofmodel = {};
   StoryModel.fromjson(Map json) {
     name = json['name'];

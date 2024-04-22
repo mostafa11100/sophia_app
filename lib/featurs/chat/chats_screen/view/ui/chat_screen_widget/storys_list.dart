@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gallery_picker/gallery_picker.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sophia_chat/approuter.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/models/story_icon_model.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/view/cubit/usercubit/user_data_cubit.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/view/ui/chat_screen_widget/circle_ofstroy.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/view/ui/chat_screen_widget/storyview.dart';
+import 'package:story_maker/story_maker.dart';
 
 class StorysList extends StatelessWidget {
   const StorysList({super.key});
@@ -21,7 +26,31 @@ class StorysList extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 10, left: 10),
                 child: CustomCircleAvatarOfStory(
-                    ontap: () {},
+                    ontap: () async {
+                      //       await [
+                      //   Permission.photos,
+                      //   Permission.storage,
+                      // ].request();
+                      List<MediaFile>? singleMedia =
+                          await GalleryPicker.pickMedia(
+                              context: context, singleMedia: true);
+
+                      final file = await singleMedia![0].getFile();
+
+                      final File editedFile = await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => StoryMaker(
+                            filePath: file.path,
+                          ),
+                        ),
+                      );
+                      print(editedFile.path);
+                      showDialog(
+                          context: context,
+                          builder: (c) {
+                            return Image(image: FileImage(file));
+                          });
+                    },
                     models: StoryModel.fromjson(
                         {'name': "your story", 'url': "", 'state': false}),
                     visible: false,
@@ -49,10 +78,10 @@ class StorysList extends StatelessWidget {
                                 'state': state.listofusermodel[i].online
                               }),
                               ontap: () {
-                                state.listofusermodel[i].listofs[0];
-                                print("push");
                                 GoRouter.of(context).push(approuter.storyview,
-                                    extra: state.listofusermodel[i].listofs);
+                                    extra: ListOfStoryModel(
+                                        listOfStorys: state.listofusermodel,
+                                        index: i));
                               },
                               visible: true,
                               child: Image.network(

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:sophia_chat/class/exeptions_firebase.dart';
 import 'package:sophia_chat/class/sendverify_emaik.dart';
 import 'package:sophia_chat/featurs/auth/gender_/data/repos/repo_imp_adduser.dart';
-import 'package:sophia_chat/featurs/auth/gender_/data/user_model.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 
 part 'add_user_data_to_firebase_state.dart';
 

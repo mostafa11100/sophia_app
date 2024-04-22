@@ -18,7 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-        theme: ThemeData(fontFamily: "Asul"),
+        theme: ThemeData(
+            bottomSheetTheme: BottomSheetThemeData(
+                backgroundColor: Colors.white.withOpacity(0)),
+            fontFamily: "Asul"),
         debugShowCheckedModeBanner: false,
         routerConfig: approuter.routs);
   }

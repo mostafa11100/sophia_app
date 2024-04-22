@@ -3,8 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:sophia_chat/approuter.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 
-AppBar customappbar({name = "", state = "", String url = ""}) {
+AppBar customappbar({UserModel? usermodel}) {
   return AppBar(
     centerTitle: false,
     backgroundColor: ColorApp.primarycolor,
@@ -26,12 +27,11 @@ AppBar customappbar({name = "", state = "", String url = ""}) {
         children: [
           InkWell(
             onTap: () {
-              GoRouter.of(context).push(approuter.profilefriend);
+              GoRouter.of(context)
+                  .push(approuter.profilefriend, extra: usermodel);
             },
             child: CircleAvatar(
-                radius: 18,
-                backgroundColor: Colors.red,
-                backgroundImage: NetworkImage(url)),
+                radius: 18, backgroundImage: NetworkImage(usermodel!.url!)),
           ),
           const SizedBox(
             width: 10,
@@ -40,13 +40,13 @@ AppBar customappbar({name = "", state = "", String url = ""}) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                name,
+                usermodel.name!,
                 style: TextStyleConst.textstyle22.copyWith(
                   color: Colors.white,
                 ),
               ),
               Text(
-                state,
+                usermodel.online! ? "active now" : "not active",
                 style: TextStyleConst.textstyle15.copyWith(
                   color: Colors.white,
                 ),

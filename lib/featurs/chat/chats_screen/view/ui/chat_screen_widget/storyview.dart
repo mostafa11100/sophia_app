@@ -1,96 +1,171 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:sophia_chat/const/text_style_const.dart';
+import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/customtextfeildandbutton.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/models/list_ofstory.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/view/ui/chat_screen_widget/user_info_story.dart';
+import "package:story_view/story_view.dart";
 
-// import 'package:story_view/controller/story_controller.dart';
-// import 'package:story_view/widgets/story_view.dart';
+class StoryView1 extends StatefulWidget {
+  StoryView1({super.key, required this.listOfStorys});
+  ListOfStoryModel listOfStorys;
+  @override
+  State<StoryView1> createState() => _StoryView1State();
+}
 
-class StoryView1 extends StatelessWidget {
-  StoryView1({super.key, this.listOfStorys});
-  List<ListOfStorys>? listOfStorys;
+class _StoryView1State extends State<StoryView1>
+    with SingleTickerProviderStateMixin {
+  StoryController? controller;
+
+  ScrollController? scrollController;
+  TabController? tabcontroller;
+  List<StoryItem>? listofitems;
+  List<Widget>? listoftab;
+  @override
+  void initState() {
+    scrollController = ScrollController();
+
+    listoftab = [];
+    controller = StoryController();
+    tabcontroller = TabController(
+        initialIndex: widget.listOfStorys.index,
+        length: widget.listOfStorys.listOfStorys.length,
+        vsync: this);
+    listoftab = List.generate(widget.listOfStorys.listOfStorys.length, (c) {
+      listofitems = [];
+      addtolistofitems(
+          controller: controller,
+          listOfStorys: widget.listOfStorys.listOfStorys[c].listofs!,
+          listofitems: listofitems);
+
+      return StoryView(
+        onComplete: () {
+          if (c < widget.listOfStorys.listOfStorys.length - 1) {
+            print(c);
+
+            tabcontroller!.animateTo(1);
+          }
+        },
+
+        //  indicatorOuterPadding: EdgeInsets.all(40),
+        storyItems: listofitems!,
+        controller: controller!,
+      );
+    });
+    // widget.listOfStorys.listOfStorys.forEach((element) {
+
+    // });
+    tabcontroller!.addListener(() {
+      print("ccccc  ${tabcontroller!.index}");
+      setState(() {});
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print("enter to scaffold    ${widget.listOfStorys.listOfStorys.length}");
     return Scaffold(
-      body: Center(
-        child: Container(),
+        body: SizedBox(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: Stack(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: TabBarView(controller: tabcontroller, children: listoftab!),
+          ),
+          Positioned(
+              top: 50,
+              child: userinfo_story(
+                  usermodel:
+                      widget.listOfStorys.listOfStorys[tabcontroller!.index])),
+          Positioned(
+            bottom: 10,
+            left: (MediaQuery.of(context).size.width / 2) - 20,
+            child: InkWell(
+              onTap: () {
+                controller!.pause();
+
+                showModalBottomSheet(
+                    //     // isDismissible: true,
+                    isScrollControlled: true,
+                    backgroundColor: const Color.fromARGB(255, 12, 24, 34),
+                    context: context,
+                    builder: (c) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                        child: CustomTextFeildMessage(
+                          docs: "",
+                          autofocus: true,
+                        ),
+                      );
+                    });
+              },
+              child: Text(
+                "Replay",
+                style: TextStyleConst.textstyle17.copyWith(color: Colors.white),
+              ),
+            ),
+          )
+        ],
       ),
-    );
+    ));
   }
 }
 
-// Widget storyview(storys) {
-//   StoryController controller = StoryController();
-//   return StoryView(
-//     controller: controller,
-//     storyItems: ginerateiyems(storys, controller),
-//     onStoryShow: (index) {
-//       print("Showing a story");
-//     },
-//     onComplete: () {
-//       print("Completed a cycle");
-//     },
-//     progressPosition: ProgressPosition.bottom,
-//     repeat: false,
-//     inline: true,
-//   );
-// }
+void addtolistofitems(
+    {controller, required List<ListOfStorys> listOfStorys, listofitems}) {
+  for (var element in listOfStorys!) {
+    switch (element.type) {
+      case "image":
+        listofitems!.add(StoryItem.pageImage(
+            shown: true,
+            captionOuterPadding: const EdgeInsets.all(20),
+            caption: Text(
+              element.caption!,
+              style: TextStyleConst.textstyle17.copyWith(color: Colors.white),
+            ),
+            url: element.story!,
+            controller: controller!,
+            loadingWidget: const Center(
+              child: CircularProgressIndicator(
+                color: Colors.black,
+              ),
+            ),
+            imageFit: BoxFit.fill));
+        break;
+      case "video":
+        listofitems!.add(StoryItem.pageVideo(element.story!,
+            controller: controller!,
+            loadingWidget: const Center(
+              child: CircularProgressIndicator(
+                color: Colors.black,
+              ),
+            ),
+            caption: Text(
+              element.caption!,
+              style: TextStyleConst.textstyle17.copyWith(color: Colors.white),
+            ),
+            duration: const Duration(milliseconds: 600),
+            imageFit: BoxFit.fill));
+        break;
+      default:
+        listofitems!.add(StoryItem.text(
+            duration: const Duration(milliseconds: 600),
+            title: element.story!,
+            backgroundColor: const Color(0x000fffff)));
+        break;
+    }
+  }
+}
 
-// List<StoryItem> ginerateiyems(List<ListOfStorys> storys, controller) {
-//   List<StoryItem> items = [];
-//   storys.forEach((element) {
-//     if (element.story == "")
-//       // ignore: curly_braces_in_flow_control_structures
-//       items.add(
-//         StoryItem.text(
-//           title: element.caption!,
-//           backgroundColor: Colors.orange,
-//           roundedTop: true,
-//         ),
-//       );
-//     else
-//     // if(element.)   if video
-//     if (element.story != "") {
-//       items.add(StoryItem.inlineImage(
-//         url: element.story!,
-//         controller: controller,
-//         caption: Text(
-//           element.caption!,
-//           style: const TextStyle(
-//             color: Colors.white,
-//             backgroundColor: Colors.black54,
-//             fontSize: 17,
-//           ),
-// //         ),
-// //       ));
-// //     }
-// //   });
-// //   return items;
-// // }
-
-// var images1 = [
-//   'https://firebasestorage.googleapis.com/v0/b/app-monotony.appspot.com/o/assets%2FScreen%20Shot%202020-09-06%20at%2013.24.29.png?alt=media&token=30f1e802-e3f2-4cdb-b95c-b1f886bfeba2',
-//   'https://firebasestorage.googleapis.com/v0/b/app-monotony.appspot.com/o/assets%2FScreen%20Shot%202020-09-06%20at%2013.24.48.png?alt=media&token=69743845-dfcb-4245-83bf-3f543715e2bd',
-//   'https://firebasestorage.googleapis.com/v0/b/app-monotony.appspot.com/o/assets%2FScreen%20Shot%202020-09-06%20at%2013.27.04.png?alt=media&token=750c65a5-216b-4e6b-840d-8efe10042ed6'
-// ];
-// var images2 = [
-//   'https://firebasestorage.googleapis.com/v0/b/app-monotony.appspot.com/o/assets%2Fmonotony-brand-02.png?alt=media&token=49d1d989-ac74-4d00-a816-e1680172e707',
-//   'https://lh3.googleusercontent.com/r87lupz1w9JaLb6_8UZtBWnR1bu4rjC6yWV69pqfSy2PZzB7lAwNjR8fyWyruShu_dk',
-//   'https://lh3.googleusercontent.com/vzstCu3rediu8YxljS-3oA7qNDVmet-Wl2VQpoWCOMN4zqirKdOAhNJZXU98Y6QMOiE=s180',
-// ];
-// Widget viewStoryCustom() {
-//   return StoryViewer(
-//     padding: EdgeInsets.all(8),
-//     backgroundColor: Colors.white,
-//     ratio: StoryRatio.r16_9,
-//     stories: [
-//       StoryItemModel(imageProvider: NetworkImage(images1[0])),
-//       StoryItemModel(imageProvider: NetworkImage(images1[1])),
-//       StoryItemModel(imageProvider: NetworkImage(images1[2])),
-//     ],
-//     userModel: UserModel(
-//       username: 'flutter',
-//       profilePicture: NetworkImage(
-//         'https://cdn-images-1.medium.com/max/1200/1*5-aoK8IBmXve5whBQM90GA.png',
-//       ),
-//     ),
-//   );
-// }
+class ListOfStoryModel {
+  List<UserModel> listOfStorys;
+  int index;
+  ListOfStoryModel({required this.listOfStorys, required this.index});
+}

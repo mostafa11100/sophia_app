@@ -4,8 +4,8 @@ import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
-import 'package:sophia_chat/featurs/auth/gender_/data/user_model.dart';
 import 'package:sophia_chat/featurs/chat/calls_screen/data/models/list_tile_calls_model.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 
 class CallScreen extends StatelessWidget {
   const CallScreen({super.key});
@@ -13,7 +13,8 @@ class CallScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: 100,
+        shrinkWrap: false,
+        itemCount: 10,
         itemBuilder: (c, i) {
           return ListTileCalls(
             model: CallsModel.fromjson(json: {
@@ -52,10 +53,10 @@ class ListTileCalls extends StatelessWidget {
                 // borderColor: listofcolors[0],
                 //  borderWidth: 2.5,
                 radius: 27,
-                child: Image.network(
-                  usermodel.photo!,
-                  fit: BoxFit.fill,
-                ),
+                // child: Image.network(
+                //   usermodel.url!,
+                //   fit: BoxFit.fill,
+                // ),
               ),
               Positioned(
                 left: 40,

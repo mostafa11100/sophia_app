@@ -9,15 +9,11 @@ class SendMessageToFireStore extends SendmessageRepo {
   @override
   sendmessage({message, docs}) async {
     try {
-      print("send");
-      print(docs);
-      print(message);
       ExeptionsFirebase? result = await FirebaseAddDate.updatedata(
-          data: message, collection: "chats", docs: docs);
+          data: message, collection: "chats", docs: docs, feild: 'message');
 
       return result;
     } catch (e) {
-      print(e.toString());
       return ExeptionsFirebase.fromejson(e.toString());
     }
   }

@@ -5,7 +5,7 @@ import 'package:sophia_chat/class/exeptions_firebase.dart';
 class FirebaseFireStoreFunctions {
   FirebaseFirestore? db;
   Future<Either<bool, ExeptionsFirebase>> setdocs(
-      {Map<String, dynamic>? json, String? colection, String? docs}) async {
+      {json, String? colection, String? docs}) async {
     try {
       db = FirebaseFirestore.instance;
       db!.collection(colection!).doc(docs!).set(json!);

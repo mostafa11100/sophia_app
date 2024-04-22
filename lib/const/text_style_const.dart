@@ -61,4 +61,29 @@ class TextStyleConst {
     fontSize: 25,
     color: Colors.black,
   );
+  static TextStyle textstyle26 = const TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 26,
+    color: Colors.black,
+  );
+  static TextStyle textstyle27 = const TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 27,
+    color: Colors.black,
+  );
+  static TextStyle textstyle28 = const TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 28,
+    color: Colors.black,
+  );
+  static TextStyle textstyle29 = const TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 29,
+    color: Colors.black,
+  );
+  static TextStyle textstyle33 = const TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 33,
+    color: Colors.black,
+  );
 }

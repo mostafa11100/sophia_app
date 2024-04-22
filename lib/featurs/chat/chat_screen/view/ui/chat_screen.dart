@@ -2,58 +2,58 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
-import 'package:sophia_chat/featurs/auth/gender_/data/user_model.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/cubit/cubitsendmessage/cubit/send_message_cubit.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/cubit/getchat/cubit/get_chat_cubit.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/custom_appbar.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/customtextfeildandbutton.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/messageuser1_custom.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/messageuser2.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   ChatScreen({super.key, required this.usermodel});
+  UserModel usermodel;
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
   ScrollController? controller = ScrollController();
+
   ScrollController? controle = ScrollController();
 
   String id = "1111";
-  UserModel usermodel;
+
   @override
   Widget build(BuildContext context) {
     // WidgetsBinding.instance.addPostFrameCallback(jump());
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => GetChatCubit()..getchat(usermodel.uid),
+          create: (context) => GetChatCubit()..getchat(widget.usermodel.uid),
         ),
         BlocProvider(
           create: (context) => SendMessageCubit(),
         ),
       ],
       child: Scaffold(
-        appBar: customappbar(
-            name: usermodel.name, state: "active now", url: usermodel.photo!),
+        appBar: customappbar(usermodel: widget.usermodel),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
-              // Expanded(
-              //   flex: 2,
-              //   child:
-              // ),
               Expanded(
                 flex: 14,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  //height: MediaQuery.of(context).size.height,
                   child: SingleChildScrollView(
                     controller: controle,
                     child: BlocBuilder<GetChatCubit, GetChatState>(
                       builder: (context, state) {
                         if (state is GetChatsuccess) {
-                          print("enter");
                           id = state.id;
                           return Column(
                             children: [
@@ -70,17 +70,19 @@ class ChatScreen extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8.0, vertical: 2),
                                         child: state.chat.message![i].uid ==
-                                                usermodel.uid
+                                                widget.usermodel.uid
                                             ? MessageContainerCustomuser2(
-                                                url: usermodel.photo!,
+                                                usermodel: widget.usermodel,
                                                 state: false,
                                                 message: state
                                                     .chat.message![i].message!)
                                             : Column(
                                                 children: [
                                                   MessageContainerCustomuser1(
-                                                    message: state.chat
-                                                        .message![i].message!,
+                                                    message:
+                                                        state.chat.message![i],
+                                                    type: state
+                                                        .chat.message![i].type!,
                                                   ),
                                                   Align(
                                                       alignment:
@@ -94,7 +96,6 @@ class ChatScreen extends StatelessWidget {
                               ),
                               CustomTextFeildMessage(
                                 docs: id,
-                                controle: controle,
                               )
                             ],
                           );

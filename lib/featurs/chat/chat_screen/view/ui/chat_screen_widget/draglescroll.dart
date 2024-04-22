@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sophia_chat/approuter.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
-import 'package:sophia_chat/featurs/chat/friend_profile/view/ui/profilefriend_screen.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
+import 'package:sophia_chat/featurs/chat/friend_profile/view/cubit/update_follwing_cubit/cubit/updat_follwoing_cubit.dart';
+import 'package:sophia_chat/featurs/chat/friend_profile/view/ui/profile_friend_widget/custom_button_follow.dart';
 import 'package:sophia_chat/featurs/profile/view/ui/profile_widgets/follow_widget.dart';
 
+// ignore: must_be_immutable
 class DraggableScrollViewCustom extends StatefulWidget {
-  DraggableScrollViewCustom({super.key});
-
+  DraggableScrollViewCustom({super.key, required this.usermodel});
+  UserModel usermodel;
   @override
   State<DraggableScrollViewCustom> createState() =>
       _DraggableScrollViewCustomState();
@@ -21,7 +25,6 @@ class _DraggableScrollViewCustomState extends State<DraggableScrollViewCustom> {
   void initState() {
     control = DraggableScrollableController();
     control!.addListener(() {
-      print(control!.pixels);
       if (control!.pixels > MediaQuery.of(context).size.height / 2) {
         GoRouter.of(context).pop();
         GoRouter.of(context).push(approuter.profilefriend);
@@ -58,16 +61,15 @@ class _DraggableScrollViewCustomState extends State<DraggableScrollViewCustom> {
                       ),
                       ListTile(
                         horizontalTitleGap: 4,
-                        leading: const CircleAvatar(
+                        leading: CircleAvatar(
                           radius: 34,
                           backgroundColor: Colors.red,
-                          backgroundImage: NetworkImage(
-                              "https://firebasestorage.googleapis.com/v0/b/sophia-chat.appspot.com/o/profile_photo.PNG?alt=media&token=97cb0f47-420b-4985-8d5e-cfb2b42f8752"),
+                          backgroundImage: NetworkImage(widget.usermodel.url!),
                         ),
                         title: Row(
                           children: [
                             Text(
-                              "mostafa salem",
+                              widget.usermodel.name!,
                               style: TextStyleConst.textstyle18
                                   .copyWith(fontWeight: FontWeight.w600),
                             ),
@@ -81,27 +83,13 @@ class _DraggableScrollViewCustomState extends State<DraggableScrollViewCustom> {
                           ],
                         ),
                         subtitle: Text(
-                          "@milana.myles",
+                          widget.usermodel.description!,
                           style: TextStyleConst.textstyle16.copyWith(
                               fontWeight: FontWeight.w700, color: Colors.blue),
                         ),
-                        trailing: InkWell(
-                          onTap: () {},
-                          child: Container(
-                            height: 44,
-                            width: 100,
-                            decoration: BoxDecoration(
-                                color: ColorApp.primarycolor,
-                                borderRadius: BorderRadius.circular(25)),
-                            child: Center(
-                              child: Text(
-                                "Follow",
-                                style: TextStyleConst.textstyle16.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
+                        trailing: BlocProvider(
+                          create: (context) => UpdatFollwoingCubit(),
+                          child: followcustombuttom(widget.usermodel),
                         ),
                         contentPadding: const EdgeInsets.all(10),
                       ),
@@ -113,9 +101,12 @@ class _DraggableScrollViewCustomState extends State<DraggableScrollViewCustom> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Follow(434, "puplic post"),
-                              Follow(3232, "Followers"),
-                              Follow(923, "Following"),
+                              Follow(widget.usermodel.puplicpost!.length,
+                                  "puplic post"),
+                              Follow(widget.usermodel.followers!.length,
+                                  "Followers"),
+                              Follow(widget.usermodel.following!.length,
+                                  "Following"),
                             ]),
                       ),
                       contactinfo(),

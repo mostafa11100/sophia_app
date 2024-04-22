@@ -9,6 +9,7 @@ import 'package:sophia_chat/featurs/chat/chats_screen/data/repos/repo_abstract.d
 part 'user_data_state.dart';
 
 class UserDataCubit extends Cubit<UserDataState> {
+  bool disbose = false;
   UserDataCubit() : super(UserDataInitial());
   getuserstory? repo;
   SharedPref? pref;
@@ -17,17 +18,26 @@ class UserDataCubit extends Cubit<UserDataState> {
 
     repo = getuserstory();
     emit(UserDatalodaing());
-    print("enter");
+
     //Future uid = await pref!.getfromshared("uid");
 
     Either<dynamic, ExeptionsFirebase>? result =
         await repo?.getdata(uid1: "jTfN06KUljT13n8wK75mkwPakGm1");
     result!.fold((l) {
-      print("tru");
-      emit(UserDatasuccess(l));
+      if (!disbose) {
+        emit(UserDatasuccess(l));
+      }
     }, (r) {
-      print("false ${r.eror}");
-      emit(UserDatafail(r.eror!));
+      if (!disbose) {
+        emit(UserDatafail(r.eror!));
+      }
     });
+  }
+
+  @override
+  Future<void> close() {
+    disbose = true;
+
+    return super.close();
   }
 }

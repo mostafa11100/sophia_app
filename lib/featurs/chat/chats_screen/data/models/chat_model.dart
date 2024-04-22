@@ -24,6 +24,7 @@ class MessageModel {
   bool? call;
   bool? image;
   String? message;
+  String? url;
   bool? seen;
   String? uid;
   Timestamp? time;
@@ -37,6 +38,7 @@ class MessageModel {
     uid = json['uid'];
     type = json['type'] ?? "message";
     time = json['time'];
+    url = json['url'] ?? "";
   }
   MessageModel.tojson(
       {this.call,
@@ -45,6 +47,7 @@ class MessageModel {
       this.seen,
       this.time,
       this.uid,
+      this.url,
       this.type = "message"}) {
     print(time);
     json?['call'] = call;
@@ -54,5 +57,6 @@ class MessageModel {
     json?['time'] = time;
     json?['uid'] = uid;
     json?['type'] = type;
+    json?['url'] = url;
   }
 }

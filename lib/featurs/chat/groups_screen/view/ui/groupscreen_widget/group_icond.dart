@@ -40,11 +40,13 @@ Widget GroupIcon(GroupModel model) {
         ),
         Stack(
           children: [
-            CircularProfileAvatar("",
-                backgroundColor: ColorApp.greycolor,
-                radius: 33,
-                // borderWidth: 2.3,
-                child: Image(image: NetworkImage(model.image!))),
+            CircularProfileAvatar(
+              "",
+              backgroundColor: ColorApp.greycolor,
+              radius: 33,
+              // borderWidth: 2.3,
+              //child: Image(image: NetworkImage(model.image!))
+            ),
             Positioned(
               left: 48,
               top: 48,
@@ -70,7 +72,7 @@ Widget GroupIcon(GroupModel model) {
         const SizedBox(
           height: 10,
         ),
-        GroupMemberImagesList(model.members)
+        //   GroupMemberImagesList(model.members)
       ],
     ),
   );

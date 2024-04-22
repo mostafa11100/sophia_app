@@ -38,7 +38,7 @@ class ListTileOfuser extends StatelessWidget {
                 //  borderWidth: 2.5,
                 radius: 27,
                 child: Image.network(
-                  model.userModel!.photo!,
+                  model.userModel!.url!,
                   fit: BoxFit.fill,
                 ),
               ),

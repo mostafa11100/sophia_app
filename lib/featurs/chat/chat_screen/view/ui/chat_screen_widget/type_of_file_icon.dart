@@ -4,7 +4,7 @@ import 'package:sophia_chat/const/text_style_const.dart';
 Widget typeoffile(
     {required String? title,
     required Function()? ontap,
-    required Icon? icon,
+    required Widget? icon,
     required Color color}) {
   return InkWell(
     hoverColor: const Color.fromARGB(255, 105, 104, 104),
@@ -15,9 +15,9 @@ Widget typeoffile(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircleAvatar(
-            radius: 30,
+            radius: 25,
             backgroundColor: color,
-            child: icon,
+            child: Center(child: icon),
           ),
           const SizedBox(
             height: 4,

@@ -1,11 +1,11 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:sophia_chat/const/color_app.dart';
 
 Widget CreateGroupeICon() {
   return InkWell(
-    onTap: () {
-      print("create");
-    },
+    onTap: () {},
     child: Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(

@@ -7,6 +7,7 @@ import 'package:sophia_chat/featurs/chat/chats_screen/data/models/chat_model.dar
 part 'send_message_state.dart';
 
 class SendMessageCubit extends Cubit<SendMessageState> {
+  bool closecubit = false;
   SendMessageCubit() : super(SendMessageInitial());
   SendMessageToFireStore? sendmessage;
   void send(docs, MessageModel message) async {
@@ -15,12 +16,18 @@ class SendMessageCubit extends Cubit<SendMessageState> {
     ExeptionsFirebase? re =
         await sendmessage!.sendmessage(message: message.json, docs: docs);
 
-    if (re == null) {
-      print("send");
+    if (re == null && !closecubit) {
       emit(SendMessagesucces());
     } else {
-      print(re.eror);
-      emit(SendMessagefail(re.eror!));
+      if (!closecubit) {
+        emit(SendMessagefail(re!.eror!));
+      }
     }
+  }
+
+  @override
+  Future<void> close() {
+    closecubit = true;
+    return super.close();
   }
 }

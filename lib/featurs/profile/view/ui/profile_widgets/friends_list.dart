@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sophia_chat/approuter.dart';
+import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 import 'package:sophia_chat/featurs/profile/view/ui/profile_widgets/seemore.dart';
 
-Widget friendslist() {
+Widget friendslist(List<UserModel> listoffriends) {
   return Builder(builder: (context) {
     return Container(
       //  height: 100,
@@ -35,29 +39,52 @@ Widget friendslist() {
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: 60,
-            child: ListView.builder(
-                padding: EdgeInsetsDirectional.zero,
-                itemCount: 5,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (c, i) {
-                  if (i == 4) {
-                    return Padding(
-                      padding: const EdgeInsets.all(3.8),
-                      child: seemore(),
-                    );
-                  } else {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 3.8),
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            "https://firebasestorage.googleapis.com/v0/b/sophia-chat.appspot.com/o/profile_photo.PNG?alt=media&token=97cb0f47-420b-4985-8d5e-cfb2b42f8752"),
-                        radius: 28,
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                  }
-                }),
+            height: 55,
+            child: Center(
+              child: ListView.builder(
+                  padding: EdgeInsetsDirectional.zero,
+                  itemCount:
+                      listoffriends.length > 6 ? 6 : listoffriends.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (c, i) {
+                    if (i == 5) {
+                      return Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: seemore(listoffriends.length - 6),
+                      );
+                    } else {
+                      return InkWell(
+                        onTap: () {
+                          GoRouter.of(context).push(approuter.profilefriend,
+                              extra: listoffriends[i]);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 3),
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    //listoffriends[i].url!
+                                    listoffriends[i].url!),
+                                radius: 30,
+                              ),
+                              Positioned(
+                                  left: 40,
+                                  top: 44,
+                                  child: CircleAvatar(
+                                    radius: 6,
+                                    backgroundColor: listoffriends[i].online!
+                                        ? ColorApp.primarycolor
+                                        : ColorApp.greycolor,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                  }),
+            ),
           ),
         ],
       ),

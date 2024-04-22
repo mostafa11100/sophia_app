@@ -30,10 +30,8 @@ class GetDataFromFirebase {
 
       return Left(result);
     } on FirebaseException catch (e) {
-      print("yesss get data done=================== ${e.message}");
       return Right(ExeptionsFirebase.fromejson(e.message));
     } catch (e) {
-      print("yesss get data done =================== ${e.toString()}");
       return Right(ExeptionsFirebase.fromejson(e.toString()));
     }
   }
@@ -55,10 +53,8 @@ class GetDataFromFirebase {
 
       return Left(result);
     } on FirebaseException catch (e) {
-      print("yesss get data not  done=================== ${e.message}");
       return Right(ExeptionsFirebase.fromejson(e.message));
     } catch (e) {
-      print("yesss get data done =================== ${e.toString()}");
       return Right(ExeptionsFirebase.fromejson(e.toString()));
     }
   }
@@ -77,4 +73,21 @@ class GetDataFromFirebase {
       return Right(ExeptionsFirebase.fromejson(e.toString()));
     }
   }
+
+  // Future<Either<QuerySnapshot<Map<String, dynamic>>, ExeptionsFirebase>>
+  //     searchinfirestore(
+  //   collection,
+  //   field,
+  // ) async {
+  //   try {
+  //     db = FirebaseFirestore.instance;
+  //     QuerySnapshot<Map<String, dynamic>> result =
+  //         await db!.collection(collection).where(field).orderBy(field).get();
+  //     return Left(result);
+  //   } on FirebaseException catch (e) {
+  //     return Right(ExeptionsFirebase.fromejson(e.message));
+  //   } catch (e) {
+  //     return Right(ExeptionsFirebase.fromejson(e.toString()));
+  //   }
+  // }
 }
