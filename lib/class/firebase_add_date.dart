@@ -3,6 +3,18 @@ import 'package:sophia_chat/class/exeptions_firebase.dart';
 
 class FirebaseAddDate {
   static FirebaseFirestore? db;
+  static Future<ExeptionsFirebase?> adddata({data, collection}) async {
+    try {
+      db = FirebaseFirestore.instance;
+      await db!.collection(collection).doc().set(data);
+      return null;
+    } on FirebaseException catch (e) {
+      return ExeptionsFirebase.fromejson(e.message.toString());
+    } catch (e) {
+      return ExeptionsFirebase.fromejson(e.toString());
+    }
+  }
+
   static Future<ExeptionsFirebase?> updatedata(
       {data, collection, docs, feild}) async {
     try {
@@ -10,6 +22,18 @@ class FirebaseAddDate {
       await db!.collection(collection).doc(docs).update({
         feild: FieldValue.arrayUnion([data]),
       });
+      return null;
+    } on FirebaseException catch (e) {
+      return ExeptionsFirebase.fromejson(e.message.toString());
+    } catch (e) {
+      return ExeptionsFirebase.fromejson(e.toString());
+    }
+  }
+
+  static Future<ExeptionsFirebase?> update({data, collection, docs}) async {
+    try {
+      db = FirebaseFirestore.instance;
+      await db!.collection(collection).doc(docs).update(data);
       return null;
     } on FirebaseException catch (e) {
       return ExeptionsFirebase.fromejson(e.message.toString());

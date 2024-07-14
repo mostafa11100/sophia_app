@@ -1,11 +1,15 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sophia_chat/approuter.dart';
 import 'package:sophia_chat/const/color_app.dart';
 
-Widget CreateGroupeICon() {
+Widget CreateGroupeICon(context, usermodel) {
   return InkWell(
-    onTap: () {},
+    onTap: () {
+      GoRouter.of(context).push(approuter.listoffriends, extra: usermodel);
+    },
     child: Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -13,7 +17,7 @@ Widget CreateGroupeICon() {
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         CircleAvatar(
           radius: 35,
-          backgroundColor: ColorApp.greycolor,
+          backgroundColor: const Color.fromARGB(255, 226, 223, 223),
           child: const Icon(
             Icons.add,
             size: 30,

@@ -7,6 +7,7 @@ class RepoGetFriends {
   GetUserData? getuserdata;
   Future<Either<List<UserModel>, ExeptionsFirebase>> get(
       List<dynamic> listofuid) async {
+    Either<List<UserModel>, ExeptionsFirebase>? result;
     try {
       List<UserModel> listofriends = [];
 
@@ -17,11 +18,14 @@ class RepoGetFriends {
 
         friends.fold((left) {
           listofriends.add(left);
-        }, (right) {});
+        }, (right) {
+          result = Right(right);
+        });
       });
-      return Left(listofriends);
+      result = Left(listofriends);
     } catch (e) {
-      return Right(ExeptionsFirebase.fromejson(e.toString()));
+      result = Right(ExeptionsFirebase.fromejson(e.toString()));
     }
+    return result!;
   }
 }

@@ -10,26 +10,30 @@ class UserModel {
   bool? online;
   String? gender;
   String? bio;
+  String? location;
+  String? phone;
   String? description;
   late List<dynamic>? followers = [];
   late List<dynamic>? searchhistory = [];
   late List<dynamic>? searchhistoryvisited = [];
   late List<dynamic>? following = [];
   late List<dynamic>? friends = [];
-  List<PublicPostModel>? puplicpost = [];
-  String? uid;
-
-  Map? jsonofmodel = {};
+  List<String>? puplicpost = [];
+  String uid;
+  Map<String, dynamic>? jsonofmodel = {};
   List<ListOfStorys>? listofs = [];
-  UserModel.fromjson({required Map<String, dynamic> json, this.uid}) {
+  List<dynamic>? listofuserchats = [];
+  UserModel.fromjson({required Map<String, dynamic> json, required this.uid}) {
     //print(json);
-    name = json['name'];
-    email = json['email'];
-    passowrd = json['passowrd'];
-    gender = json['gender'];
-    url = json['photo'];
-    online = json['online'];
-    gender = json['gender'];
+    name = json['name'] ?? "";
+    email = json['email'] ?? "";
+    passowrd = json['passowrd'] ?? "";
+    gender = json['gender'] ?? "";
+    url = json['url'] ?? "";
+    online = json['online'] ?? false;
+    gender = json['gender'] ?? "";
+    phone = json['phone'] ?? "";
+    location = json['location'] ?? "";
     followers = json['followers'] ?? [];
 
     following = json['following'] ?? [];
@@ -38,9 +42,11 @@ class UserModel {
     bio = json['bio'] ?? "";
     searchhistory = json['searchhistory'] ?? [];
     searchhistoryvisited = json['searchhistoryvisited'] ?? [];
-    for (Map element in json['images'] ?? []!) {
-      puplicpost!.add(PublicPostModel.fromjson(element));
+    listofuserchats = json["chats"] ?? [];
+    for (String element in json['publicpost'] ?? []) {
+      puplicpost!.add(element);
     }
+
     for (var element in json["story"] ?? []) {
       listofs!.add(ListOfStorys.fromjson(element));
     }
@@ -55,21 +61,20 @@ class UserModel {
       this.friends,
       this.following,
       this.gender,
-      this.jsonofmodel,
       this.listofs,
       this.puplicpost,
       this.url,
       this.online,
-      this.uid = ""}) {
-    jsonofmodel?['name'] = name;
-    jsonofmodel?['url'] = url;
-    jsonofmodel?['state'] = online;
-    jsonofmodel?['bio'] = bio;
-    jsonofmodel?['following'] = following;
-    jsonofmodel?['followers'] = followers;
-    jsonofmodel?['description'] = description;
-    jsonofmodel?['followers'] = followers;
-    jsonofmodel?['publicpost'] = puplicpost;
+      required this.uid}) {
+    jsonofmodel?['name'] = name == null ? "" : name;
+    jsonofmodel?['url'] = url == null ? "" : url;
+    jsonofmodel?['state'] = online == null ? false : online;
+    jsonofmodel?['bio'] = bio == null ? "" : bio;
+    jsonofmodel?['following'] = following == null ? [] : following;
+    jsonofmodel?['followers'] = followers == null ? [] : followers;
+    jsonofmodel?['description'] = description == null ? "" : description;
+
+    jsonofmodel?['publicpost'] = puplicpost == null ? [] : puplicpost;
   }
 }
 
@@ -91,5 +96,20 @@ class PublicPostModel {
     json['caption'] = caption;
     json['imgurl'] = imgurl;
     json['time'] = Timestamp.now();
+  }
+}
+
+class StoryModel {
+  String? color;
+  String? caption;
+  String? url;
+  String? type;
+  String? time;
+  StoryModel.fromjson(Map json) {
+    color = json['backgroundcolor'];
+    caption = json['capgion'];
+    url = json['story'];
+    Timestamp t = json['time'];
+    time = converttime(t.toDate());
   }
 }

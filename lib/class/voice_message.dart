@@ -108,10 +108,17 @@ Widget voicemessage(user1, urlimge, audiourl, String time) {
                 }
                 if (stateprocces == ProcessingState.loading ||
                     stateprocces == ProcessingState.buffering) {
-                  return const Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: CircularProgressIndicator(
-                      color: Color.fromARGB(255, 201, 228, 250),
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: SizedBox(
+                        width: 25,
+                        height: 25,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.5,
+                          color: Color.fromARGB(255, 231, 238, 243),
+                        ),
+                      ),
                     ),
                   );
                 }
@@ -121,35 +128,29 @@ Widget voicemessage(user1, urlimge, audiourl, String time) {
                       play = play ? false : true;
                       if (play == true) {
                         if (stateprocces == ProcessingState.completed) {
-                          print("pause");
                           await player.pause();
                         } else {
-                          print("play");
                           await player.play();
                         }
                       } else {
-                        print("close");
-                        await player!.stop();
+                        await player.stop();
                       }
                     } on PlayerException catch (e) {
                       // iOS/macOS: maps to NSError.code
                       // Android: maps to ExoPlayerException.type
                       // Web: maps to MediaError.code
                       // Linux/Windows: maps to PlayerErrorCode.index
-                      print("Error code: ${e.code}");
+
                       // iOS/macOS: maps to NSError.localizedDescription
                       // Android: maps to ExoPlaybackException.getMessage()
                       // Web/Linux: a generic message
                       // Windows: MediaPlayerError.message
-                      print("Error message: ${e.message}");
                     } on PlayerInterruptedException catch (e) {
                       // This call was interrupted since another audio source was loaded or the
                       // player was stopped or disposed before this audio source could complete
                       // loading.
-                      print("Connection aborted: ${e.message}");
                     } catch (e) {
                       // Fallback for all other errors
-                      print('An error occured: $e');
                     }
                   },
                   child: Icon(
@@ -161,9 +162,9 @@ Widget voicemessage(user1, urlimge, audiourl, String time) {
                 );
               }),
           CircleAvatar(
+            backgroundColor: const Color.fromARGB(0, 255, 255, 255),
             backgroundImage: NetworkImage(urlimge),
             radius: MediaQuery.of(context).size.width / 16,
-            backgroundColor: Colors.red,
           ),
         ]));
   });

@@ -15,22 +15,27 @@ class LogInCubit extends Cubit<LogInState> {
   SharedPref pref = SharedPref();
   void login(email, password) async {
     emit(LogInloading());
+    try {
+      Either<ExeptionsFirebase, UserCredential> result =
+          await log!.login(email, password);
+      result.fold((left) {
+        emit(LogInfail(left.eror!, false));
+      }, (right) {
+        if (!FirebaseAuth.instance.currentUser!.emailVerified) {
+          FirebaseAuth.instance.currentUser!.sendEmailVerification();
 
-    Either<ExeptionsFirebase, UserCredential> result =
-        await log!.login(email, password);
-    result.fold((left) {
-      emit(LogInfail(left.eror!, false));
-    }, (right) {
-      if (!FirebaseAuth.instance.currentUser!.emailVerified) {
-        FirebaseAuth.instance.currentUser!.sendEmailVerification();
-        emit(LogInfail(
-            "sorry your acount need to verify please check your gemil and verify acount then try to login again",
-            true));
-      } else {
-        pref.setinsharedbool("login", true);
+          emit(LogInfail(
+              "sorry your acount need to verify please check your gemil and verify acount then try to login again",
+              true));
+        } else {
+          pref.setinsharedString("uid", right.user!.uid);
+          pref.setinsharedbool("login", true);
 
-        emit(LogInsucces(right));
-      }
-    });
+          emit(LogInsucces(right));
+        }
+      });
+    } catch (e) {
+      emit(LogInfail(ExeptionsFirebase.fromejson(e.toString()).eror!, true));
+    }
   }
 }

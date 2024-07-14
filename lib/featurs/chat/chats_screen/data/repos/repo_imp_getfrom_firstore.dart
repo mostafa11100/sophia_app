@@ -84,30 +84,32 @@ class GetFromFireStore extends RepoGetData {
       UserModel user;
       ChatModel chat;
 
-      Either<QuerySnapshot<Map>, ExeptionsFirebase> result =
+      Either<QuerySnapshot<Map<String, dynamic>>, ExeptionsFirebase> result =
           await getdata.getdata(
               "chats",
               Filter.or(
                 Filter('uid1', isEqualTo: uid1),
                 Filter('uid2', isEqualTo: uid1),
-              ),
-              "");
+              ));
 
       await result.fold((left) async {
         await Future.forEach(left.docs, (element) async {
           chat = ChatModel.fromjson(element.data());
+
           String? uid = chat.uid1 == uid1 ? chat.uid2 : chat.uid1;
 
-          Either<DocumentSnapshot<Map<String, dynamic>>, ExeptionsFirebase>?
-              re = await getdata.getdocsdata("user", uid);
-          await re.fold((left) async {
-            user = UserModel.fromjson(json: left.data()!, uid: uid);
+          if (chat.message!.isNotEmpty) {
+            Either<DocumentSnapshot<Map<String, dynamic>>, ExeptionsFirebase>?
+                re = await getdata.getdocsdata("user", uid);
+            await re.fold((left) async {
+              user = UserModel.fromjson(json: left.data()!, uid: uid!);
 
-            userandchat = UserAndChatModel(user, chat);
-            listofmodel.add(userandchat!);
-          }, (right) async {
-            eitherofresult = Right(right);
-          });
+              userandchat = UserAndChatModel(user, chat);
+              listofmodel.add(userandchat!);
+            }, (right) async {
+              eitherofresult = Right(right);
+            });
+          }
         });
 
         eitherofresult = Left(listofmodel);

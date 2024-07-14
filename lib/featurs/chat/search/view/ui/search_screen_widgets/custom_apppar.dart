@@ -46,7 +46,8 @@ AppBar customsearchapppar(context, TextEditingController controler) {
                       }
                       FocusScope.of(context).unfocus();
                     },
-                    controller: controler));
+                    controller: controler,
+                    hint: "Search friend"));
           }),
         )),
   );

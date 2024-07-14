@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
         theme: ThemeData(
+            scaffoldBackgroundColor: Colors.white,
             bottomSheetTheme: BottomSheetThemeData(
                 backgroundColor: Colors.white.withOpacity(0)),
             fontFamily: "Asul"),
@@ -26,3 +27,15 @@ class MyApp extends StatelessWidget {
         routerConfig: approuter.routs);
   }
 }
+
+
+//  jsonofmodel?['name'] = name==null?"":name;
+  //   jsonofmodel?['url'] = url==null?"":url;
+  //   jsonofmodel?['state'] = online==null?false:online;
+  //   jsonofmodel?['bio'] = bio==null?"":bio;
+  //   jsonofmodel?['following'] = following==null?[]:following;
+  //   jsonofmodel?['followers'] = followers==null?[]:followers;
+  //   jsonofmodel?['description'] = description==null?"":description;
+    
+  //   jsonofmodel?['publicpost'] = puplicpost==null?[]:puplicpost;
+  // }

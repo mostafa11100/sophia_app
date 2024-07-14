@@ -25,7 +25,7 @@ class _ChathomeState extends State<Chathome>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarChatCustom(context, tabController),
-        body: TabBarView(controller: tabController, children: const [
+        body: TabBarView(controller: tabController, children: [
           BodyOfChatScreen(),
           GroupScreen(),
           CallScreen(),

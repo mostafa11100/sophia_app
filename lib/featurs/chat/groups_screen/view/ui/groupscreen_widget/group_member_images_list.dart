@@ -9,7 +9,6 @@ Widget GroupMemberImagesList(List<String> url) {
           padding: EdgeInsets.only(left: (index.toDouble()) * 20),
           child: CircleAvatar(
             radius: 15,
-            backgroundColor: index % 2 != 0 ? Colors.red : Colors.green,
             backgroundImage: NetworkImage(url[index]),
           ),
         );

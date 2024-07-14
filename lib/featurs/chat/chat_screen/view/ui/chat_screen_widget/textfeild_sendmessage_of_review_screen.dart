@@ -3,18 +3,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sophia_chat/approuter.dart';
+import 'package:sophia_chat/class/modelofgroupprametar.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/data/repo_sendfile/repo_imp_sendimage_video.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/data/repo_sendfile/repo_sendfiles_gineral.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/cubit/cubitsendfiles/cubit/send_files_cubit.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 
 class TextfeildSendmessageOfReviewScreen extends StatefulWidget {
   TextfeildSendmessageOfReviewScreen(
-      {super.key, this.media, required this.docs, required this.type});
+      {super.key,
+      this.media,
+      required this.docs,
+      required this.type,
+      required this.usermodel,
+      required this.collectionname,
+      required this.feildname});
+  UserModel usermodel;
   String type;
   String docs;
   dynamic media;
+  String collectionname;
+  String feildname;
   @override
   State<TextfeildSendmessageOfReviewScreen> createState() =>
       _CustomTextFeildMessageState();
@@ -30,18 +42,10 @@ class _CustomTextFeildMessageState
     super.initState();
   }
 
-  senddtext(context) {
+  senddtext(context) async {
     //     SharedPref pref=SharedPref();
     //  var uid=  pref.getfromshared('uid');
-
-    // if (widget.type == "image") {
-    //   BlocProvider.of<SendFilesCubit>(context).sendfile(
-    //       message: controller!.text,
-    //       type: sendimageorvideo(),
-    //       data: widget.media,
-    //       docs: widget.docs);
-    // } else if (widget.type == "file") {
-    BlocProvider.of<SendFilesCubit>(context).sendfile(
+    await BlocProvider.of<SendFilesCubit>(context).sendfile(
         message: controller!.text,
         type: widget.type != "gif"
             ? widget.type == "file"
@@ -49,14 +53,27 @@ class _CustomTextFeildMessageState
                 : sendimageorvideo()
             : null,
         data: widget.media,
-        docs: widget.docs);
+        docs: widget.docs,
+        colectionname: widget.collectionname,
+        feildname: widget.feildname);
     // } else {
     //   BlocProvider.of<SendFilesCubit>(context).sendfile(
     //       message: controller!.text, data: widget.media, docs: widget.docs);
     // }
 
     controller!.clear();
-    GoRouter.of(context).pop();
+    if (widget.collectionname == "groups") {
+      GoRouter.of(context).pop();
+      GoRouter.of(context).pop();
+      GoRouter.of(context).pop();
+      // GoRouter.of(context).pushReplacement(approuter.groupchat,
+      //     extra: Modelofgroupprametar(widget.docs, widget.usermodel));
+    } else {
+      GoRouter.of(context).pop();
+      GoRouter.of(context).pop();
+      GoRouter.of(context).pop();
+      // GoRouter.of(context).push(approuter.chat, extra: widget.usermodel);
+    }
   }
 
   @override
@@ -71,6 +88,7 @@ class _CustomTextFeildMessageState
                 Expanded(
                   flex: 1,
                   child: InkWell(
+                      borderRadius: BorderRadius.circular(15),
                       onTap: () {
                         senddtext(context);
                       },

@@ -20,6 +20,7 @@ class GetUserData {
 
     result.fold((left) {
       usermodel = UserModel.fromjson(json: left.data()!, uid: left.id);
+
       data = Left(usermodel!);
     }, (right) {
       data = Right(right);

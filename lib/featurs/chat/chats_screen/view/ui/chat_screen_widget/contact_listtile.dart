@@ -57,7 +57,8 @@ class ListTileOfuser extends StatelessWidget {
               ),
             ],
           ),
-          titleTextStyle: const TextStyle(color: Colors.black, fontSize: 18),
+          titleTextStyle: const TextStyle(
+              color: Colors.black, fontSize: 19, fontWeight: FontWeight.w600),
 
           title: SizedBox(
             height: 20,
@@ -86,6 +87,7 @@ class ListTileOfuser extends StatelessWidget {
             child: Text(
               model.chatModel!.message![0].message!,
               style: TextStyleConst.textstyle16.copyWith(
+                  fontWeight: FontWeight.w700,
                   color: model.chatModel!.message![0].seen == true
                       ? ColorApp.seenmessagecolor
                       : model.chatModel!.message![0].call != true

@@ -8,7 +8,6 @@ import 'package:sophia_chat/featurs/auth/sign_up/view/cubit/cubit/creat_acount_c
 import 'package:sophia_chat/featurs/auth/sign_up/view/ui/sign_up_widget/apppar.dart';
 import 'package:sophia_chat/featurs/auth/sign_up/view/ui/sign_up_widget/checkbox_and_button.dart';
 import 'package:sophia_chat/featurs/auth/sign_up/view/ui/sign_up_widget/email_form.dart';
-import 'package:sophia_chat/featurs/auth/sign_up/view/ui/sign_up_widget/form_signup_widget.dart';
 import 'package:sophia_chat/featurs/auth/sign_up/view/ui/sign_up_widget/passowrd_form.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -33,79 +32,87 @@ class SignUpScreen extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (context) => CreatAcountCubit(CreateAcountEmailAndPassword()),
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                      "https://images.unsplash.com/photo-1442328166075-47fe7153c128?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFjayUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D"))),
-          child: Column(
-            children: [
-              const Expanded(
-                flex: 1,
-                child: AppBarCustom(),
+        child: Stack(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 2,
+              // width: MediaQuery.of(context).size.width,
+
+              child: Image(
+                image: AssetImage("assets/signinandup_backgroung.jpg"),
+                fit: BoxFit.cover,
               ),
-              Expanded(
-                flex: 5,
-                child: ListView(
-                  physics: const BouncingScrollPhysics(),
-                  reverse: true,
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height / 1.6,
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20))),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 25, vertical: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "SignUp",
-                                  style: TextStyleConst.textstyle22
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                )),
-                            const SizedBox(
-                              height: 35,
+            ),
+            Column(
+              children: [
+                const Expanded(
+                  flex: 1,
+                  child: AppBarCustom(),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    reverse: true,
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height / 1.8,
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20))),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              right: 33, left: 33, top: 10, bottom: 5),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "Signup",
+                                      style: TextStyleConst.textstyle28
+                                          .copyWith(
+                                              fontWeight: FontWeight.w900),
+                                    )),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                EmailForm(
+                                    formk: formk!,
+                                    controller_name: controller_name!,
+                                    controller_email: controller_email!),
+                                PasswordForm(
+                                  controller_passowrd: controller_passowrd,
+                                  controller_confirmpass:
+                                      controller_confirmpass,
+                                  formk2: formk2!,
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                CheckBoxAndButton(
+                                  formk: formk!,
+                                  controller_name: controller_name!,
+                                  controller_email: controller_email!,
+                                  controller_passowrd: controller_passowrd!,
+                                  controller_confirm_password:
+                                      controller_confirmpass!,
+                                  formk2: formk2!,
+                                )
+                              ],
                             ),
-                            EmailForm(
-                                formk: formk!,
-                                controller_name: controller_name!,
-                                controller_email: controller_email!),
-                            PasswordForm(
-                              controller_passowrd: controller_passowrd,
-                              controller_confirmpass: controller_confirmpass,
-                              formk2: formk2!,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            CheckBoxAndButton(
-                              formk: formk!,
-                              controller_name: controller_name!,
-                              controller_email: controller_email!,
-                              controller_passowrd: controller_passowrd!,
-                              controller_confirm_password:
-                                  controller_confirmpass!,
-                              formk2: formk2!,
-                            )
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
       ),
     );

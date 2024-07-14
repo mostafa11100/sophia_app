@@ -7,6 +7,7 @@ import 'package:sophia_chat/class/exeptions_firebase.dart';
 import 'package:sophia_chat/class/firebase_storage.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/data/repo_sendfile/abstractclass.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/data/repo_sendfile/repo_imp_sendimage_video.dart';
+import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/custom_bottom_sheet.dart';
 
 class SendFilesGineral extends AbstractSendFile {
   FirebaseStorageOperations? storage;

@@ -13,20 +13,12 @@ class GetDataFromFirebase {
           ExeptionsFirebase>> getdataandlisten(
       collection, filter1, filter2) async {
     try {
-      // print('enter');
-      // print("--------------?");
       db = FirebaseFirestore.instance;
       StreamSubscription<QuerySnapshot<Map<String, dynamic>>> result = await db!
           .collection(collection)
           .where(filter1)
           .snapshots()
           .listen((event) {});
-
-      // print("after");
-      // result.docs.forEach((element) {
-      //   print(element.data());
-      //   print("=================");
-      // });
 
       return Left(result);
     } on FirebaseException catch (e) {
@@ -37,19 +29,11 @@ class GetDataFromFirebase {
   }
 
   Future<Either<QuerySnapshot<Map<String, dynamic>>, ExeptionsFirebase>>
-      getdata(collection, filter1, filter2) async {
+      getdata(collection, filter1) async {
     try {
-      // print('enter');
-      // print("--------------?");
       db = FirebaseFirestore.instance;
       QuerySnapshot<Map<String, dynamic>> result =
           await db!.collection(collection).where(filter1).get();
-
-      // print("after");
-      // result.docs.forEach((element) {
-      //   print(element.data());
-      //   print("=================");
-      // });
 
       return Left(result);
     } on FirebaseException catch (e) {

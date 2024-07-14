@@ -14,7 +14,7 @@ class CustomCircleAvatarOfStory extends StatelessWidget {
       required this.ontap,
       required this.visible});
   bool visible;
-  Widget child;
+  Widget? child;
   StoryModel models;
   Function() ontap;
 
@@ -36,7 +36,13 @@ class CustomCircleAvatarOfStory extends StatelessWidget {
               onTap: ontap,
               child: Stack(
                 children: [
-                  CircularProfileAvatar("",
+                  CircularProfileAvatar(models.url!,
+                      imageBuilder: (cont, provider) {
+                    return CircleAvatar(
+                      radius: 30,
+                      backgroundImage: provider,
+                    );
+                  },
                       backgroundColor: ColorApp.greycolor,
                       borderColor: models.state!
                           ? ColorApp.primarycolor

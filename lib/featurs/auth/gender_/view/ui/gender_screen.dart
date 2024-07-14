@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sophia_chat/approuter.dart';
 import 'package:sophia_chat/class/alert_dialog.dart';
 import 'package:sophia_chat/class/shared_pref.dart';
+import 'package:sophia_chat/const/profile_emptyy_image.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 import 'package:sophia_chat/featurs/auth/gender_/data/repos/repo_imp_adduser.dart';
 import 'package:sophia_chat/featurs/auth/gender_/view/cubit/cubit/add_user_data_to_firebase_cubit.dart';
@@ -35,10 +36,17 @@ class GenderScreen extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Hi mostafa,\nChooce Gender",
-                    textAlign: TextAlign.left,
-                    style: TextStyleConst.textstyle25,
+                  child: FutureBuilder(
+                    initialData: null,
+                    builder: (context, data) {
+                      if (data.data == null) return SizedBox();
+                      return Text(
+                        "Hi ${data.data},\nChooce Gender",
+                        textAlign: TextAlign.left,
+                        style: TextStyleConst.textstyle25,
+                      );
+                    },
+                    future: p.getfromshared('name'),
                   ),
                 ),
                 const SizedBox(
@@ -65,10 +73,12 @@ class GenderScreen extends StatelessWidget {
                       BlocProvider.of<AddUserDataToFirebaseCubit1>(context)
                           .adduser(
                               userModel: UserModel.tojson(
+                        url: emptyimageprofile,
                         name: await p.getfromshared('name'),
                         email: await p.getfromshared('email'),
                         passowrd: await p.getfromshared('password'),
                         gender: gender.toString(),
+                        uid: "",
                       ));
                       // ignore: use_build_context_synchronously
                       showdialog(

@@ -17,13 +17,14 @@ class GetUserDataFromFireStore {
         await gett!.getdocsdata("user", docs);
 
     await result.fold((left) async {
-      usermodel = UserModel.fromjson(json: left.data()!);
+      usermodel = UserModel.fromjson(json: left.data()!, uid: left.id);
       await Future.forEach(usermodel.searchhistoryvisited!, (value) async {
         Either<DocumentSnapshot<Map<String, dynamic>>, ExeptionsFirebase>
             result2 = await gett!.getdocsdata("user", value);
 
         result2.fold((left) {
-          listofusermodel.add(UserModel.fromjson(json: left.data()!));
+          listofusermodel
+              .add(UserModel.fromjson(json: left.data()!, uid: left.id));
         }, (right) {});
       });
       returnvalue = Right(ModelOfHistory(usermodel, listofusermodel));

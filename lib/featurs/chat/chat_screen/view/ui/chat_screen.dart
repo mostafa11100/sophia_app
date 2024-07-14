@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/cubit/cubitsendmessage/cubit/send_message_cubit.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/cubit/getchat/cubit/get_chat_cubit.dart';
@@ -9,7 +10,9 @@ import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/customtextfeildandbutton.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/messageuser1_custom.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/messageuser2.dart';
+import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/shimmer_chatscreen.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
+import 'package:sophia_chat/utilits/error_elrtdialog.dart';
 
 class ChatScreen extends StatefulWidget {
   ChatScreen({super.key, required this.usermodel});
@@ -32,7 +35,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => GetChatCubit()..getchat(widget.usermodel.uid),
+          create: (context) => GetChatCubit()..getchat(widget.usermodel),
         ),
         BlocProvider(
           create: (context) => SendMessageCubit(),
@@ -51,7 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   width: MediaQuery.of(context).size.width,
                   child: SingleChildScrollView(
                     controller: controle,
-                    child: BlocBuilder<GetChatCubit, GetChatState>(
+                    child: BlocConsumer<GetChatCubit, GetChatState>(
                       builder: (context, state) {
                         if (state is GetChatsuccess) {
                           id = state.id;
@@ -79,6 +82,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                             : Column(
                                                 children: [
                                                   MessageContainerCustomuser1(
+                                                    url:
+                                                        "https://firebasestorage.googleapis.com/v0/b/sophia-chat.appspot.com/o/images%2FIMG-20240711-WA0014.jpg?alt=media&token=1bfe006a-ba00-4275-ab01-32183d11bd5c",
                                                     message:
                                                         state.chat.message![i],
                                                     type: state
@@ -96,16 +101,24 @@ class _ChatScreenState extends State<ChatScreen> {
                               ),
                               CustomTextFeildMessage(
                                 docs: id,
+                                usermodel: widget.usermodel,
+                                collectionname: 'chats',
+                                feildnamel: 'message',
                               )
                             ],
                           );
                         }
+
+                        return shimmerChatscreen();
+                      },
+                      listener: (BuildContext context, GetChatState state) {
                         if (state is GetChatfail) {
-                          return Center(
-                            child: Text(state.error),
-                          );
+                          alertdialogerror(context, state.error, () {
+                            BlocProvider.of<GetChatCubit>(context)
+                                .getchat(widget.usermodel);
+                          });
+                          GoRouter.of(context).pop();
                         }
-                        return Container();
                       },
                     ),
                   ),

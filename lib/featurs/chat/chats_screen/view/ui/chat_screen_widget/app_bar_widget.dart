@@ -46,6 +46,8 @@ AppBar AppBarChatCustom(context, tabController) {
     bottom: PreferredSize(
         preferredSize: Size(MediaQuery.of(context).size.width, 50),
         child: TabBar(
+            labelPadding: EdgeInsets.symmetric(vertical: 5),
+            indicatorPadding: EdgeInsets.symmetric(vertical: 2),
             unselectedLabelColor: const Color.fromARGB(255, 161, 160, 160),
             dividerColor: ColorApp.primarycolor,
             indicatorColor: Colors.white,
@@ -60,15 +62,15 @@ AppBar AppBarChatCustom(context, tabController) {
             },
             tabs: [
               Text(
-                "messages",
+                "Messages",
                 style: TextStyleConst.textstyle18.copyWith(color: Colors.white),
               ),
               Text(
-                "groups",
+                "Groups",
                 style: TextStyleConst.textstyle18.copyWith(color: Colors.white),
               ),
               Text(
-                "calls",
+                "Calls",
                 style: TextStyleConst.textstyle18.copyWith(color: Colors.white),
               )
             ])),

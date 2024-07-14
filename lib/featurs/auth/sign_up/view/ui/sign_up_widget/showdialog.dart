@@ -1,23 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:sophia_chat/const/text_style_const.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:sophia_chat/utilits/alertdialog_gineraluse.dart';
 
 showd(context, error) {
-  return showDialog(
+  showawesamedialog(
       context: context,
-      builder: (c) {
-        return AlertDialog(
-          title: Text(
-            "error",
-            style: TextStyleConst.textstyle16.copyWith(color: Colors.red),
-          ),
-          icon: const Icon(
-            Icons.error,
-            color: Colors.red,
-          ),
-          content: Text(
-            error,
-            style: TextStyleConst.textstyle16.copyWith(color: Colors.red),
-          ),
-        );
-      });
+      ontap1: () {},
+      ontap2: null,
+      content: error,
+      title: "error",
+      dialogType: DialogType.error);
 }

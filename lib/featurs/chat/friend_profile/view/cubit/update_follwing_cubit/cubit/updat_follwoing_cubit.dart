@@ -14,20 +14,15 @@ class UpdatFollwoingCubit extends Cubit<UpdatFollwoingState> {
     emit(UpdatFollwoingloading());
     ExeptionsFirebase? result;
     pref = SharedPref();
-    //  String uid =await pref!.getfromshared('uid');
+    pref = SharedPref();
+    String uid = await pref!.getfromshared('uid');
 
     updateFollwoingData = UpdateFollwoingData();
-    result = await updateFollwoingData!.update(
-        feild: "following",
-        data: uid,
-        docs: "tZxKJrHJamvHp0maq849",
-        remove: remove);
+    result = await updateFollwoingData!
+        .update(feild: "following", data: uid, docs: uid, remove: remove);
     result == null
-        ? result = await updateFollwoingData!.update(
-            feild: "followers",
-            data: "tZxKJrHJamvHp0maq849",
-            docs: uid,
-            remove: remove)
+        ? result = await updateFollwoingData!
+            .update(feild: "followers", data: uid, docs: uid, remove: remove)
         : emit(UpdatFollwoingfail(!remove));
     result == null
         ? emit(UpdatFollwoingsucces(remove))

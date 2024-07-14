@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 
 Widget searchfeildcustom({
+  required String hint,
   required Function() ontap,
   required TextEditingController controller,
 }) {
@@ -19,29 +19,36 @@ Widget searchfeildcustom({
       controller: controller,
       cursorColor: Colors.white,
       decoration: InputDecoration(
-          isCollapsed: true,
-          // contentPadding: const EdgeInsets.only(top: 10, right: 6),
+
+          //contentPadding: const EdgeInsets.only(bottom: 0, right: 6),
           prefixIcon: InkWell(
             borderRadius: BorderRadius.circular(15),
             onTap: ontap,
-            child: const Icon(
-              Icons.search,
-              size: 33,
-              color: Color.fromARGB(255, 245, 243, 243),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 9, left: 6),
+              child: const Icon(
+                Icons.search,
+                size: 30,
+                color: Color.fromARGB(255, 245, 243, 243),
+              ),
             ),
           ),
           // hoverColor: ,
 
           suffix: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 9),
+            padding: const EdgeInsets.only(bottom: 1, left: 3),
             child: InkWell(
               borderRadius: BorderRadius.circular(15),
               onTap: () {
                 controller.clear();
               },
-              child: const Icon(
-                Icons.close,
-                color: Color.fromARGB(255, 245, 243, 243),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 0.0, left: 3),
+                child: const Icon(
+                  Icons.close,
+                  size: 20,
+                  color: Color.fromARGB(255, 245, 243, 243),
+                ),
               ),
             ),
           ),
@@ -53,9 +60,9 @@ Widget searchfeildcustom({
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(30)),
-          hintText: "Search friend",
+          hintText: hint,
           hintStyle: TextStyleConst.textstyle17.copyWith(
-            height: .6,
+            height: .0,
             color: const Color.fromARGB(255, 245, 243, 243),
           )),
     ),

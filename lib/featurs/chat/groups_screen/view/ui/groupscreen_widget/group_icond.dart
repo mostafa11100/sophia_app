@@ -15,7 +15,7 @@ Widget GroupIcon(GroupModel model) {
           children: [
             const Icon(
               Icons.star,
-              color: Color.fromARGB(255, 236, 217, 45),
+              color: Color.fromARGB(255, 107, 105, 105),
             ),
             const Spacer(),
             PopupMenuButton(
@@ -40,13 +40,15 @@ Widget GroupIcon(GroupModel model) {
         ),
         Stack(
           children: [
-            CircularProfileAvatar(
-              "",
-              backgroundColor: ColorApp.greycolor,
-              radius: 33,
-              // borderWidth: 2.3,
-              //child: Image(image: NetworkImage(model.image!))
-            ),
+            CircularProfileAvatar(model.image!,
+                backgroundColor: ColorApp.greycolor,
+                radius: 33,
+                borderWidth: 2.3,
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 33,
+                  backgroundImage: NetworkImage(model.image!),
+                )),
             Positioned(
               left: 48,
               top: 48,
@@ -65,14 +67,14 @@ Widget GroupIcon(GroupModel model) {
         const SizedBox(
           height: 10,
         ),
-        const Text(
-          "school group",
+        Text(
+          model.name!,
           style: TextStyle(color: Colors.black, fontSize: 17),
         ),
         const SizedBox(
           height: 10,
         ),
-        //   GroupMemberImagesList(model.members)
+        GroupMemberImagesList(model.members)
       ],
     ),
   );

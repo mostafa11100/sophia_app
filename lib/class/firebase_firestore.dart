@@ -16,4 +16,15 @@ class FirebaseFireStoreFunctions {
       return Right(ExeptionsFirebase(e.toString()));
     }
   }
+
+  Future<ExeptionsFirebase?> createdocs({json, String? colection}) async {
+    try {
+      db = FirebaseFirestore.instance;
+      db!.collection(colection!).add(json!);
+    } on FirebaseException catch (e) {
+      return ExeptionsFirebase(e.toString());
+    } catch (e) {
+      return ExeptionsFirebase(e.toString());
+    }
+  }
 }

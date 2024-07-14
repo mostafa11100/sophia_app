@@ -18,9 +18,14 @@ class AppBarCustom extends StatelessWidget {
             Icons.arrow_back,
             color: Colors.white,
           )),
-      trailing: Text(
-        "LogIn",
-        style: TextStyleConst.textstyle16.copyWith(color: Colors.white),
+      trailing: InkWell(
+        onTap: () {
+          GoRouter.of(context).pushReplacement(approuter.login);
+        },
+        child: Text(
+          "LogIn",
+          style: TextStyleConst.textstyle20.copyWith(color: Colors.white),
+        ),
       ),
     );
   }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
+import 'package:sophia_chat/featurs/profile/view/ui/profile_widgets/custom_gridview.dart';
 
-Widget photos(List<PublicPostModel>? listofimages) {
+Widget photos(List<String>? listofimages) {
   return Builder(builder: (context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -21,7 +21,7 @@ Widget photos(List<PublicPostModel>? listofimages) {
               ),
               const Spacer(),
               Text(
-                "See all",
+                "See All",
                 style: TextStyleConst.textstyle16
                     .copyWith(color: Colors.blue, fontWeight: FontWeight.w600),
               ),
@@ -38,15 +38,13 @@ Widget photos(List<PublicPostModel>? listofimages) {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (c, i) {
                   return Padding(
-                    padding: const EdgeInsets.all(3.0),
+                    padding: const EdgeInsets.all(1.0),
                     child: Container(
                       height: 90,
-                      width: 90,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: NetworkImage(listofimages[i].imgurl!)),
-                          borderRadius: BorderRadius.circular(4)),
+                      width: 88,
+                      child: viewimagecustom(listofimages[i]),
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(4)),
                     ),
                   );
                 }),

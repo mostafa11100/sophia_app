@@ -17,7 +17,7 @@ AppBar customappbar({UserModel? usermodel}) {
         child: const Icon(
           Icons.arrow_back,
           color: Colors.white,
-          size: 35,
+          size: 33,
         ),
       );
     }),
@@ -62,7 +62,7 @@ AppBar customappbar({UserModel? usermodel}) {
         child: const Icon(
           Icons.phone,
           color: Colors.white,
-          size: 32,
+          size: 28,
         ),
       ),
       const SizedBox(
@@ -73,7 +73,7 @@ AppBar customappbar({UserModel? usermodel}) {
         child: const Icon(
           Icons.video_call,
           color: Colors.white,
-          size: 32,
+          size: 28,
         ),
       ),
       const SizedBox(
@@ -84,7 +84,7 @@ AppBar customappbar({UserModel? usermodel}) {
         child: const Icon(
           Icons.error,
           color: Colors.white,
-          size: 32,
+          size: 28,
         ),
       ),
       const SizedBox(

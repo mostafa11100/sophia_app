@@ -6,13 +6,12 @@ import 'package:sophia_chat/const/text_style_const.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 import 'package:sophia_chat/featurs/profile/view/ui/profile_widgets/seemore.dart';
 
-Widget friendslist(List<UserModel> listoffriends) {
+Widget friendslist(List<UserModel> listoffriends, Color color) {
   return Builder(builder: (context) {
     return Container(
       //  height: 100,
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(5)),
+      decoration: BoxDecoration(color: color),
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       child: Column(
@@ -27,7 +26,7 @@ Widget friendslist(List<UserModel> listoffriends) {
               ),
               const Spacer(),
               Text(
-                "see all",
+                "See All",
                 style: TextStyleConst.textstyle17.copyWith(
                     color: const Color.fromARGB(255, 22, 131, 221),
                     fontWeight: FontWeight.w600),
@@ -63,11 +62,15 @@ Widget friendslist(List<UserModel> listoffriends) {
                           child: Stack(
                             clipBehavior: Clip.none,
                             children: [
-                              CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    //listoffriends[i].url!
-                                    listoffriends[i].url!),
-                                radius: 30,
+                              Material(
+                                child: CircleAvatar(
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 247, 245, 245),
+                                  backgroundImage: NetworkImage(
+                                      //listoffriends[i].url!
+                                      listoffriends[i].url!),
+                                  radius: 30,
+                                ),
                               ),
                               Positioned(
                                   left: 40,

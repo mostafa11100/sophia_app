@@ -14,9 +14,10 @@ import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/type_of_file_icon.dart';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 import 'package:sophia_chat/utilits/gallery_custom.dart';
 
-Widget bottomshet(id) {
+Widget bottomshet(id, UserModel usermodel, collectionname, feildname) {
   return Builder(builder: (context) {
     return BlocProvider(
       create: (context) => SendFilesCubit(),
@@ -35,10 +36,12 @@ Widget bottomshet(id) {
                     title: 'Audio',
                     ontap: (file, time) {
                       BlocProvider.of<SendFilesCubit>(context).sendfile(
-                          message: "haha",
+                          message: "",
                           type: SendFilesGineral(),
                           data: [FileAndType(file, FileType(file))],
-                          docs: id);
+                          docs: id,
+                          colectionname: collectionname,
+                          feildname: feildname);
                     },
                     color: ColorApp.primarycolor),
                 typeoffile(
@@ -72,24 +75,16 @@ Widget bottomshet(id) {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (c) {
                           return reviewandaddcoment(
+                            usermodel: usermodel,
                             type: 'gif',
                             id: id,
                             image: gif.images!.downsized!.url,
+                            collectionname: collectionname,
+                            feildname: feildname,
                           );
                         }));
                       }
-                      //   BlocProvider.of<SendFilesCubit>(context).sendfile(
-                      //       message: "haha",
-                      //       data: gif!.images!.downsized!.url,
-                      //       docs: id);
-                      //   showDialog(
-                      //       context: context,
-                      //       builder: (c) {
-                      //         return AlertDialog(
-                      //           content:
-                      //               Image.network(gif!.images!.downsized!.url),
-                      //         );
-                      //       });
+
                       //   //
                     },
                     icon: const Icon(
@@ -114,16 +109,22 @@ Widget bottomshet(id) {
                           .pickFiles(allowMultiple: true);
                       File filee;
                       if (result != null) {
-                        List<FileAndType> files = result.paths.map((path) {
+                        List<File> files = result.paths.map((path) {
                           filee = File(path!);
 
-                          return FileAndType(filee, "file");
+                          return filee;
                         }).toList();
 
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (c) {
                           return reviewandaddcoment(
-                              image: files, type: "file", id: id);
+                            usermodel: usermodel,
+                            image: files,
+                            type: "file",
+                            id: id,
+                            collectionname: collectionname,
+                            feildname: feildname,
+                          );
                         }));
                         // BlocProvider.of<SendFilesCubit>(context).sendfile(
                         //     message: "haha",
@@ -141,7 +142,8 @@ Widget bottomshet(id) {
                 typeoffile(
                     title: 'Gallery',
                     ontap: () async {
-                      sendimageorvideo_ontap(context, id);
+                      sendimageorvideo_ontap(
+                          context, id, usermodel, collectionname, feildname);
                     },
                     icon: const Icon(
                       Icons.camera_alt_outlined,
@@ -158,35 +160,18 @@ Widget bottomshet(id) {
   });
 }
 
-void sendimageorvideo_ontap(context, id) async {
-  // List<MediaFile>? media = await gallerypick(context);
-
-  // Navigator.of(context).push(MaterialPageRoute(builder: (c) {
-  //   return reviewandaddcoment(image: media, type: "image", id: id);
-  // }));
+void sendimageorvideo_ontap(
+    context, id, usermodel, collectionname, feildname) async {
   showBottomSheet(
-      //  isDismissible: false,
       builder: (context) {
-        return CustomGalleryView(id: id);
+        return CustomGalleryView(
+          id: id,
+          usermodel: usermodel,
+          collectionname: collectionname,
+          feildname: feildname,
+        );
       },
       context: context);
-
-  // BlocProvider.of<SendFilesCubit>(context).sendfile(
-  //     message: "haha", type: sendimageorvideo(), data: media, docs: id);
-  // if (media != null) {
-  //   showDialog(
-  //       context: context,
-  //       builder: (c) {
-  //         return AlertDialog(
-  //           content: PhotoProvider(
-  //             media: media![0],
-  //             height: 200,
-  //             width: 200,
-  //           ),
-  //         );
-  //       }
-  //       );
-  // }
 }
 
 String FileType(File file) {
@@ -199,7 +184,10 @@ String FileType(File file) {
   if (file.path.contains("mp4")) {
     return "video";
   }
-  print(file.path);
-
-  return "other";
+  if (file.path.contains("pdf")) {
+    return "pdf";
+  } else {
+    int index = file.path.indexOf('.');
+    return file.path.substring(index);
+  }
 }

@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sophia_chat/approuter.dart';
 import 'package:sophia_chat/class/alert_dialog.dart';
 import 'package:sophia_chat/class/shared_pref.dart';
 import 'package:sophia_chat/const/color_app.dart';
@@ -30,7 +29,7 @@ class CheckBoxAndButton extends StatefulWidget {
   TextEditingController controller_passowrd;
 
   TextEditingController controller_confirm_password;
-  SharedPref pref = SharedPref();
+
   GlobalKey<FormState> formk;
   GlobalKey<FormState> formk2;
   @override
@@ -39,6 +38,13 @@ class CheckBoxAndButton extends StatefulWidget {
 
 class _CheckBoxAndButtonStateState extends State<CheckBoxAndButton> {
   bool? state = false;
+  SharedPref? pref;
+  @override
+  void initState() {
+    pref = SharedPref();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,13 +64,13 @@ class _CheckBoxAndButtonStateState extends State<CheckBoxAndButton> {
             children: [
               Text(
                 "iread and agree with ",
-                style: TextStyleConst.textstyle10
-                    .copyWith(fontWeight: FontWeight.bold),
+                style: TextStyleConst.textstyle12
+                    .copyWith(fontWeight: FontWeight.w600),
               ),
               Text(
                 "privacy & terms",
-                style: TextStyleConst.textstyle10.copyWith(
-                    fontWeight: FontWeight.bold, color: ColorApp.primarycolor),
+                style: TextStyleConst.textstyle12.copyWith(
+                    fontWeight: FontWeight.w600, color: ColorApp.primarycolor),
               ),
             ],
           ),
@@ -78,7 +84,7 @@ class _CheckBoxAndButtonStateState extends State<CheckBoxAndButton> {
                   widget.formk,
                   widget.formk2,
                   context,
-                  widget.pref,
+                  pref!,
                   widget.controller_email,
                   widget.controller_passowrd,
                   widget.controller_name);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/featurs/chat/chat_home_screen.dart';
 import 'package:sophia_chat/featurs/profile/view/ui/profile_screen.dart';
+import 'package:sophia_chat/featurs/settings/view/settings_screen/gineral_setting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,13 +23,12 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         bottomNavigationBar: custombuttombar(controller!),
         body: TabBarView(controller: controller, children: [
           ProfileScreen(),
           const Chathome(),
-          Container(
-            color: Colors.red,
-          )
+          GineralSettingScreen()
         ]));
   }
 }
@@ -37,12 +37,12 @@ Widget custombuttombar(TabController control) {
   return StatefulBuilder(builder: (c, s) {
     return TabBar(
         unselectedLabelColor: const Color.fromARGB(255, 88, 88, 88),
-        overlayColor: MaterialStateColor.resolveWith(
-            (states) => Color(Colors.white.value)),
+        overlayColor:
+            WidgetStateColor.resolveWith((states) => Color(Colors.white.value)),
         labelColor: ColorApp.primarycolor,
-        dividerColor: Colors.white,
+        dividerColor: const Color.fromARGB(0, 255, 254, 254),
         padding: const EdgeInsets.symmetric(vertical: 12),
-        indicatorColor: Colors.white,
+        indicatorColor: const Color.fromARGB(0, 253, 253, 253),
         controller: control,
         tabs: const [
           Icon(

@@ -3,7 +3,6 @@ import 'package:sophia_chat/const/text_style_const.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 
 Widget userinfo_story({UserModel? usermodel}) {
-  print("user info   ${usermodel!.name}");
   return Builder(builder: (context) {
     return SizedBox(
       height: 100,
@@ -15,7 +14,7 @@ Widget userinfo_story({UserModel? usermodel}) {
           radius: MediaQuery.of(context).size.width / 11,
         ),
         title: Text(
-          usermodel!.name!,
+          usermodel.name!,
           style: TextStyleConst.textstyle17.copyWith(color: Colors.white),
         ),
         subtitle: Text(

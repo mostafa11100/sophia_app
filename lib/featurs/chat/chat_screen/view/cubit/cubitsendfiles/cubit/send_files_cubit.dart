@@ -17,9 +17,15 @@ class SendFilesCubit extends Cubit<SendFilesState> {
   SendMessageToFireStore? sendmessage;
   SharedPref? shared;
   String? downloadurl;
-  sendfile({AbstractSendFile? type, dynamic data, message, docs}) async {
-    // shared=SharedPref();
-    // String uid=await shared!.getfromshared('uid');
+  Future<bool> sendfile(
+      {AbstractSendFile? type,
+      dynamic data,
+      message,
+      docs,
+      required colectionname,
+      required feildname}) async {
+    shared = SharedPref();
+    String uid = await shared!.getfromshared('uid');
     if (data != null) {
       if (type is sendimageorvideo) {
         Either<List<resultmodel>, ExeptionsFirebase> result =
@@ -32,9 +38,11 @@ class SendFilesCubit extends Cubit<SendFilesState> {
               emit(SendFilesfail(l.eror!));
             }, (r) async {
               if (i == l.length - 1) {
-                sendmessageabouttypefile(r, element, message, docs);
+                sendmessageabouttypefile(
+                    r, element, message, docs, colectionname, feildname);
               } else {
-                sendmessageabouttypefile(r, element, "", docs);
+                sendmessageabouttypefile(
+                    r, element, "", docs, colectionname, feildname);
               }
               //sending message
               //emit(SendFilessuccess());
@@ -57,7 +65,8 @@ class SendFilesCubit extends Cubit<SendFilesState> {
             element.result!.fold((l) {
               emit(SendFilesfail(l.eror!));
             }, (r) async {
-              sendmessageabouttypefile(r, element, message, docs);
+              sendmessageabouttypefile(
+                  r, element, message, docs, colectionname, feildname);
               //sending message
               //emit(SendFilessuccess());
             });
@@ -77,20 +86,25 @@ class SendFilesCubit extends Cubit<SendFilesState> {
                     message: message,
                     time: Timestamp.now(),
                     seen: false,
-                    uid: "jTfN06KUljT13n8wK75mkwPakGm1",
+                    uid: uid,
                     image: false,
                     type: "gif",
                     url: data)
                 .json,
-            docs: docs);
+            docs: docs,
+            docsname: colectionname,
+            feildname: feildname);
       }
     }
+    return true;
   }
 }
 
-sendmessageabouttypefile(r, element, message, docs) async {
+sendmessageabouttypefile(
+    r, element, message, docs, collectionname, feildname) async {
   SendMessageToFireStore? sendmessage;
-  //SharedPref? shared;
+  SharedPref shared = SharedPref();
+  String uid = await shared.getfromshared('uid');
   String? downloadurl;
   sendmessage = SendMessageToFireStore();
   downloadurl = await r.ref.getDownloadURL();
@@ -100,10 +114,12 @@ sendmessageabouttypefile(r, element, message, docs) async {
               message: message,
               time: Timestamp.now(),
               seen: false,
-              uid: "jTfN06KUljT13n8wK75mkwPakGm1",
+              uid: uid,
               image: false,
               url: downloadurl,
               type: element.type)
           .json,
-      docs: docs);
+      docs: docs,
+      docsname: collectionname,
+      feildname: feildname);
 }

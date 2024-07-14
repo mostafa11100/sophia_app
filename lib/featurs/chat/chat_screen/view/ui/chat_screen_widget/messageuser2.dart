@@ -58,7 +58,7 @@ class MessageContainerCustomuser2 extends StatelessWidget {
                     topRight: Radius.circular(20),
                     bottomRight: Radius.circular(20)),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Text(message,
                   style: const TextStyle(
                       fontSize: 17,

@@ -4,43 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/featurs/chat/chat_screen/view/ui/chat_screen_widget/textfeild_sendmessage_of_review_screen.dart';
 import 'package:image_network/image_network.dart';
+import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 
 // ignore: must_be_immutable
 class reviewandaddcoment extends StatefulWidget {
   reviewandaddcoment(
-      {super.key, this.image, required this.type, required this.id});
+      {super.key,
+      this.image,
+      required this.type,
+      required this.id,
+      required this.usermodel,
+      required this.collectionname,
+      required this.feildname});
   String id;
   String type;
-
+  UserModel usermodel;
   dynamic image;
+  String collectionname;
+  String feildname;
 
   @override
   State<reviewandaddcoment> createState() => _reviewandaddcomentState();
 }
 
 class _reviewandaddcomentState extends State<reviewandaddcoment> {
-  //List<File> files = [];
-  // @override
-  // void initState() {
-  //   // File? file;
-  //   // int i = 0;
-  //   if (widget.type == "image") {
-  //     // Future.forEach(widget.image! as List<File>,
-  //     //  (element) async
-  //     // {
-  //     //  // file = await element.getFile();
-
-  //     //   files.add(file!);
-  //     //   if (i == widget.image.length - 1)
-  //     //   {
-  //     //     setState(() {});
-  //     //   }
-  //     //   i++;
-  //     // });
-  //   }
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,14 +36,30 @@ class _reviewandaddcomentState extends State<reviewandaddcoment> {
         //   backgroundColor: const Color.fromARGB(255, 241, 241, 241),
         //   leading:
         // ),
-        body: Container(
-            padding: EdgeInsets.only(top: 50),
-            // height: MediaQuery.of(context).size.height,
-            // width: MediaQuery.of(context).size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
+        body: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: PageView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: widget.type != "gif" ? widget.image.length : 1,
+                      itemBuilder: (c, i) {
+                        return typeofview(
+                            type: widget.type,
+                            context: context,
+                            index: i,
+                            image: widget.image);
+                      }),
+                ),
+              ),
+              const Positioned(
+                top: 50,
+                child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.arrow_back,
@@ -64,71 +67,73 @@ class _reviewandaddcomentState extends State<reviewandaddcoment> {
                     size: 30,
                   ),
                 ),
-                SizedBox(
-                  child: SingleChildScrollView(
-                    child: SizedBox(
-                        height: MediaQuery.of(context).size.height - 250,
-                        width: MediaQuery.of(context).size.width,
-                        child: PageView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: widget.type != "gif"
-                                ? widget.type == 'file'
-                                    ? widget.image.length
-                                    : widget.image.length
-                                : 1,
-                            itemBuilder: (c, i) {
-                              return SizedBox(
-                                  // width: MediaQuery.of(context).size.width,
-                                  // height: MediaQuery.of(context).size.height,
-                                  child: widget.type != "gif"
-                                      ? Image(
-                                          // fit: BoxFit.contain,
-
-                                          image: FileImage(
-                                              widget.type == "image"
-                                                  ? widget.image[i]
-                                                  : widget.image[i]),
-                                          // fit: BoxFit.fill
-                                        )
-                                      : ImageNetwork(
-                                          image: widget.image!,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height,
-                                          duration: 1500,
-                                          curve: Curves.easeIn,
-                                          onPointer: true,
-                                          debugPrint: false,
-                                          fullScreen: false,
-                                          fitAndroidIos: BoxFit.cover,
-                                          fitWeb: BoxFitWeb.cover,
-                                          borderRadius:
-                                              BorderRadius.circular(70),
-                                          onLoading:
-                                              const CircularProgressIndicator(
-                                            color: Colors.indigoAccent,
-                                          ),
-                                          onError: const Icon(
-                                            Icons.error,
-                                            color: Colors.red,
-                                          ),
-                                          onTap: () {
-                                            debugPrint(
-                                                "©gabriel_patrick_souza");
-                                          },
-                                        ));
-                            })),
+              ),
+              Positioned(
+                bottom: 20,
+                child: SizedBox(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width,
+                  child: TextfeildSendmessageOfReviewScreen(
+                    docs: widget.id,
+                    type: widget.type,
+                    media: widget.image,
+                    usermodel: widget.usermodel,
+                    collectionname: widget.collectionname,
+                    feildname: widget.feildname,
                   ),
                 ),
-                const Spacer(),
-                TextfeildSendmessageOfReviewScreen(
-                  docs: widget.id,
-                  type: widget.type,
-                  media: widget.image,
-                )
-              ],
-            )));
+              )
+            ],
+          ),
+        ));
+  }
+}
+
+Widget typeofview({required String type, image, context, int? index}) {
+  switch (type) {
+    case "gif":
+      return ImageNetwork(
+        image: image!,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        duration: 1500,
+        curve: Curves.easeIn,
+        onPointer: true,
+        debugPrint: false,
+        fullScreen: false,
+        fitAndroidIos: BoxFit.cover,
+        fitWeb: BoxFitWeb.cover,
+        borderRadius: BorderRadius.circular(70),
+        onLoading: const CircularProgressIndicator(
+          color: Colors.indigoAccent,
+        ),
+        onError: const Icon(
+          Icons.error,
+          color: Colors.red,
+        ),
+        onTap: () {
+          debugPrint("©gabriel_patrick_souza");
+        },
+      );
+    case "image":
+      return Image(
+        // fit: BoxFit.contain,
+
+        image: FileImage(image[index]),
+        // fit: BoxFit.fill
+      );
+    case "pdf":
+      return Image(
+        // fit: BoxFit.contain,
+
+        image: FileImage(image[index].file),
+        // fit: BoxFit.fill
+      );
+    case "file":
+      return const Center(
+        child: Icon(Icons.file_copy),
+      );
+    default:
+      return const SizedBox();
   }
 }

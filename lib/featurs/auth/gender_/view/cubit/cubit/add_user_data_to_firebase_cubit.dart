@@ -17,13 +17,16 @@ class AddUserDataToFirebaseCubit1 extends Cubit<AddUserDataToFirebaseState> {
   RepoImpAddUserToFireBase? repo_add;
   SendverifyEmail? send = SendverifyEmail(FirebaseAuth.instance);
   void adduser({required UserModel? userModel}) async {
+    print("before to user info sending   ${userModel!.jsonofmodel}");
     emit(AddUserDataToFirebaseloading());
     Either<bool, ExeptionsFirebase> result =
         await repo_add!.adduserinfo(usermodel: userModel);
-    result.fold((left) {
-      send!.sendverifyemail();
+    result.fold((left) async {
+      print("left to user info sending");
+      await send!.sendverifyemail();
       emit(AddUserDataToFirebasesuccess());
     }, (right) {
+      print("right to user info ${right.eror}");
       emit(AddUserDataToFirebasefail(right.eror));
     });
   }

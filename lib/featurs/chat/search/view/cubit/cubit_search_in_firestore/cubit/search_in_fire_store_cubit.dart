@@ -23,7 +23,8 @@ class SearchInFireStoreCubit extends Cubit<SearchInFireStoreState> {
     List<UserModel>? listofusers;
     pref = SharedPref();
     update = UpdateHistory();
-    // String uid = await pref!.getfromshared('uid');
+    pref = SharedPref();
+    String uid = await pref!.getfromshared('uid');
     try {
       emit(SearchInFireStoreloading());
       if (!history) {
@@ -35,28 +36,24 @@ class SearchInFireStoreCubit extends Cubit<SearchInFireStoreState> {
             await result.fold((left) async {
               listofusers = left;
 
-              await update!.update(
-                  field: "searchhistory",
-                  docs: "tZxKJrHJamvHp0maq849",
-                  data: field);
+              await update!
+                  .update(field: "searchhistory", docs: uid, data: field);
             }, (right) {
               emit(SearchInFireStorefail(right.eror!));
             });
           }
         } else {
-          await update!.update(
-              field: "searchhistory",
-              docs: "tZxKJrHJamvHp0maq849",
-              data: usermodel!.uid);
+          await update!
+              .update(field: "searchhistory", docs: uid, data: usermodel!.uid);
         }
       }
       Either<ExeptionsFirebase, ModelOfHistory>? resulthistory =
-          await getuserdata!.getdata("tZxKJrHJamvHp0maq849");
+          await getuserdata!.getdata(uid);
       resulthistory!.fold((left) {
         emit(SearchInFireStorefail(left.eror!));
       }, (right) {
         //   print("right ${right.listofusermodel[0].name}");
-        print(right.listofusermodel.length);
+
         emit(SearchInFireStoresucces(
             SearchScreenModel(topresult: listofusers, modelofhistory: right)));
       });

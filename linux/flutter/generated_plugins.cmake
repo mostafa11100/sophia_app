@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   emoji_picker_flutter
   record_linux
+  rive_common
   url_launcher_linux
 )
 

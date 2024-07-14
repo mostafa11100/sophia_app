@@ -25,7 +25,7 @@ class EmailForm extends StatelessWidget {
             validator: validatname,
           ),
           const SizedBox(
-            height: 10,
+            height: 8,
           ),
           CustomTextFormFeild(
             obsc: false,
@@ -34,7 +34,7 @@ class EmailForm extends StatelessWidget {
             validator: validatemail,
           ),
           const SizedBox(
-            height: 10,
+            height: 8,
           ),
         ],
       ),

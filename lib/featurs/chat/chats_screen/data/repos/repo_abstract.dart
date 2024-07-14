@@ -13,29 +13,27 @@ class getuserstory extends RepoGetData {
   Either<dynamic, ExeptionsFirebase>? either;
   @override
   Future<Either<dynamic, ExeptionsFirebase>?> getdata({uid1}) async {
+    ;
     String? uid;
     GetDataFromFirebase getdata = GetDataFromFirebase();
     try {
       Either<QuerySnapshot<Map>, ExeptionsFirebase> result =
           await getdata.getdata(
-              "friends",
-              Filter.or(
-                Filter('uid1', isEqualTo: uid1),
-                Filter('uid2', isEqualTo: uid1),
-              ),
-              "");
+        "friends",
+        Filter.or(
+          Filter('uid1', isEqualTo: uid1),
+          Filter('uid2', isEqualTo: uid1),
+        ),
+      );
+
       await result.fold((l) async {
-        print("left ${l.docs.first}");
         await Future.forEach(l.docs, (element) async {
-          print(element);
           uid = element['uid1'] == uid1 ? element['uid2'] : element['uid1'];
           Either<DocumentSnapshot<Map<String, dynamic>>, ExeptionsFirebase>
               result = await getdata.getdocsdata("user", uid);
           result.fold((l) {
-            print("left ${l.data()}");
-            listofusermodel.add(UserModel.fromjson(json: l.data()!));
+            listofusermodel.add(UserModel.fromjson(json: l.data()!, uid: l.id));
           }, (r) {
-            print("left ${r.eror}");
             either = Right(r);
           });
         });

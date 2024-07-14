@@ -1,9 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:insta_image_viewer/insta_image_viewer.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:sophia_chat/class/voice_message.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
@@ -14,9 +11,13 @@ import 'package:sophia_chat/function/convert_temp_totime.dart';
 
 class MessageContainerCustomuser1 extends StatelessWidget {
   MessageContainerCustomuser1(
-      {super.key, required this.message, required this.type});
+      {super.key,
+      required this.message,
+      required this.type,
+      required this.url});
   String type;
   MessageModel message;
+  String url;
   @override
   Widget build(BuildContext context) {
     if (type == "message")
@@ -69,10 +70,7 @@ class MessageContainerCustomuser1 extends StatelessWidget {
       return Align(
           alignment: Alignment.centerRight,
           child: voicemessage(
-              true,
-              "https://firebasestorage.googleapis.com/v0/b/sophia-chat.appspot.com/o/profile_photo.PNG?alt=media&token=97cb0f47-420b-4985-8d5e-cfb2b42f8752",
-              message.url,
-              converttime(message.time!.toDate())));
+              true, url, message.url, converttime(message.time!.toDate())));
     }
   }
 }

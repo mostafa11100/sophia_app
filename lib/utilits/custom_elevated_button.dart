@@ -14,7 +14,7 @@ class CustomElevatedbutton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 16,
+      height: MediaQuery.of(context).size.height / 18,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               disabledBackgroundColor: const Color.fromARGB(255, 105, 105, 105),

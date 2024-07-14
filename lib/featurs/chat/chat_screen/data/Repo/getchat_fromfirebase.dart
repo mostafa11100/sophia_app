@@ -25,10 +25,9 @@ class GetChatFromFireBase extends GetDataRepo {
               Filter("uid2", isEqualTo: uid1), Filter("uid2", isEqualTo: uid2)))
           .snapshots()
           .listen((event) {});
-
       return Left(result);
     } catch (e) {
-      return Right(ExeptionsFirebase.fromejson(e));
+      return Right(ExeptionsFirebase.fromejson(e.toString()));
     }
   }
 }

@@ -59,11 +59,15 @@ dependencies:
   insta_image_viewer: ^1.0.2
   story_view: ^0.16.5
   story_maker: ^1.0.5
-  
+  drop_shadow: ^0.1.0
+
   # giphy_picker: ^3.0.2
   image_network: ^2.5.6
   giphy_get: ^3.5.4
-
+  shimmer_pro: ^0.0.6
+  fade_shimmer: ^2.2.0
+  swipe_refresh: ^1.1.2
+  awesome_dialog: ^3.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -90,6 +94,11 @@ flutter:
   assets:
     - assets/Forgot password-bro.png
     - assets/file_.PNG
+    - assets/networkerror.PNG
+    - assets/signinandup_backgroung.jpg
+    - assets/svg_emptygroup.webp
+    - assets/svgcal_emoty.jpg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

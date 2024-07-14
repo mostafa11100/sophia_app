@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sophia_chat/const/color_app.dart';
 import 'package:sophia_chat/const/text_style_const.dart';
 import 'package:sophia_chat/featurs/chat/calls_screen/data/models/list_tile_calls_model.dart';
+import 'package:sophia_chat/featurs/chat/calls_screen/view/ui/call_screen_widgets/bodyofcall_empty.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 
 class CallScreen extends StatelessWidget {
@@ -12,28 +13,29 @@ class CallScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        shrinkWrap: false,
-        itemCount: 10,
-        itemBuilder: (c, i) {
-          return ListTileCalls(
-            model: CallsModel.fromjson(json: {
-              'calltype': "video",
-              "number": 10,
-              "uid1": ' QYk68SnoDBNBY2WYkjUT0DUG8bi1',
-              'uid2': "jTfN06KUljT13n8wK75mkwPakGm1",
-              'calleruid': 'QYk68SnoDBNBY2WYkjUT0DUG8bi1'
-            }),
-            usermodel:
-                UserModel.fromjson(uid: "jTfN06KUljT13n8wK75mkwPakGm1", json: {
-              'name': "ahmed",
-              "email": 'mos',
-              'gender': 'male',
-              'photo':
-                  'https://firebasestorage.googleapis.com/v0/b/sophia-chat.appspot.com/o/empty.PNG?alt=media&token=1cea72c5-8e69-453e-958a-24a7fdea8ee7'
-            }),
-          );
-        });
+    return bodyofcallscreen_empty(() {}, MediaQuery.of(context).size.width);
+    // ListView.builder(
+    //     shrinkWrap: false,
+    //     itemCount: 10,
+    //     itemBuilder: (c, i) {
+    //       return ListTileCalls(
+    //         model: CallsModel.fromjson(json: {
+    //           'calltype': "video",
+    //           "number": 10,
+    //           "uid1": ' QYk68SnoDBNBY2WYkjUT0DUG8bi1',
+    //           'uid2': "jTfN06KUljT13n8wK75mkwPakGm1",
+    //           'calleruid': 'QYk68SnoDBNBY2WYkjUT0DUG8bi1'
+    //         }),
+    //         usermodel:
+    //             UserModel.fromjson(uid: "jTfN06KUljT13n8wK75mkwPakGm1", json: {
+    //           'name': "ahmed",
+    //           "email": 'mos',
+    //           'gender': 'male',
+    //           'photo':
+    //               'https://firebasestorage.googleapis.com/v0/b/sophia-chat.appspot.com/o/empty.PNG?alt=media&token=1cea72c5-8e69-453e-958a-24a7fdea8ee7'
+    //         }),
+    //       );
+    //     });
   }
 }
 

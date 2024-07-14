@@ -24,8 +24,8 @@ class BioAndFollowrs extends StatelessWidget {
               //  contentPadding: const EdgeInsets.all(15),
               horizontalTitleGap: 6,
               leading: CircleAvatar(
+                backgroundColor: const Color.fromARGB(255, 243, 241, 241),
                 radius: 30,
-                backgroundColor: Colors.red,
                 backgroundImage: NetworkImage(usermodel.url!),
               ),
               title: Text(

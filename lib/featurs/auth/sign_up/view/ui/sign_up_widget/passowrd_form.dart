@@ -27,7 +27,7 @@ class PasswordForm extends StatelessWidget {
               validator: validatpass,
             ),
             const SizedBox(
-              height: 10,
+              height: 8,
             ),
             CustomTextFormFeild(
               autovalidateMode: AutovalidateMode.disabled,

@@ -2,15 +2,17 @@ import 'package:sophia_chat/class/exeptions_firebase.dart';
 import 'package:sophia_chat/class/firebase_add_date.dart';
 
 abstract class SendmessageRepo {
-  dynamic sendmessage({dynamic message});
+  dynamic sendmessage(
+      {message, docs, required String docsname, required feildname});
 }
 
 class SendMessageToFireStore extends SendmessageRepo {
   @override
-  sendmessage({message, docs}) async {
+  sendmessage(
+      {message, docs, required String docsname, required feildname}) async {
     try {
       ExeptionsFirebase? result = await FirebaseAddDate.updatedata(
-          data: message, collection: "chats", docs: docs, feild: 'message');
+          data: message, collection: docsname, docs: docs, feild: feildname);
 
       return result;
     } catch (e) {

@@ -19,10 +19,13 @@ class GetTopResultFromFireStore extends GetResultOfSearch {
       getdata = GetDataFromFirebase();
       Either<QuerySnapshot<Map<String, dynamic>>, ExeptionsFirebase>? result =
           await getdata?.getdata(
-              "user", Filter('name', isEqualTo: field), null);
+        "user",
+        Filter('name', isEqualTo: field),
+      );
       result!.fold((left) {
         for (var element in left.docs) {
-          listofusermodel.add(UserModel.fromjson(json: element.data()));
+          listofusermodel
+              .add(UserModel.fromjson(json: element.data(), uid: element.id));
         }
         error = Left(listofusermodel);
       }, (right) {

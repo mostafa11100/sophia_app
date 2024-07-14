@@ -12,9 +12,12 @@ class RepoImpAddUserToFireBase extends RepoAbstractCollectionOfUser {
     try {
       String uid = FirebaseAuth.instance.currentUser!.uid;
 
+      print("enter to user info sending ui ===   ${uid}");
+      print("enter to user info sending   ${usermodel!.jsonofmodel}");
       FirebaseFireStoreFunctions db = FirebaseFireStoreFunctions();
       Either<bool, ExeptionsFirebase> result = await db.setdocs(
           colection: "user", docs: uid, json: usermodel!.jsonofmodel!);
+      print("after to user info sending");
       return result;
     } catch (e) {
       return Right(ExeptionsFirebase(e.toString()));

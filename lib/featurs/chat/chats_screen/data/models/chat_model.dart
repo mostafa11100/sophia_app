@@ -4,19 +4,21 @@ class ChatModel {
   String? uid1, uid2;
   DateTime? time;
   List<MessageModel>? message = [];
+
   Map<String, dynamic>? json;
-  ChatModel.fromjson(Map json) {
+  ChatModel.fromjson(Map<String, dynamic> json) {
     uid1 = json['uid1'];
     uid2 = json['uid2'];
+
+    print(json['message']);
     for (int i = json['message'].length - 1; i >= 0; i--) {
       message!.add(MessageModel.fromjson(json['message'][i]));
     }
   }
-  ChatModel.tojson({this.message, this.uid1, this.uid2, this.time}) {
-    json?['message'] = message;
+  ChatModel.tojson({this.message, this.uid1, this.uid2}) {
+    json?['messages'] = message;
     json?['uid1'] = uid1;
     json?['uid2'] = uid2;
-    json?['time'] = time;
   }
 }
 
@@ -49,7 +51,6 @@ class MessageModel {
       this.uid,
       this.url,
       this.type = "message"}) {
-    print(time);
     json?['call'] = call;
     json?['image'] = image;
     json?['message'] = message;

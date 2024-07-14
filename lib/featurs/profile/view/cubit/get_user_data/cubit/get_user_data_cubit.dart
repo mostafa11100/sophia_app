@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:either_dart/either.dart';
 import 'package:meta/meta.dart';
 import 'package:sophia_chat/class/exeptions_firebase.dart';
+import 'package:sophia_chat/class/shared_pref.dart';
 import 'package:sophia_chat/featurs/chat/chats_screen/data/models/user_model.dart';
 import 'package:sophia_chat/featurs/profile/data/model/profilemodel.dart';
 import 'package:sophia_chat/featurs/profile/data/repo/repo_get_friends.dart';
@@ -14,15 +15,18 @@ class GetUserDataCubit extends Cubit<GetUserDataState> {
   GetUserData? getuser;
   RepoGetFriends? getfriends;
   bool closecubit = false;
+  SharedPref? pref;
   getdata() async {
     List<UserModel> listofriends = [];
     UserModel? userModel;
+
+    pref = SharedPref();
+    String uid = await pref!.getfromshared('uid');
     getfriends = RepoGetFriends();
     emit(GetUserDataloading());
     getuser = GetUserData();
     try {
-      Either<UserModel, ExeptionsFirebase> result =
-          await getuser!.get("tZxKJrHJamvHp0maq849");
+      Either<UserModel, ExeptionsFirebase> result = await getuser!.get(uid);
       await result.fold((left) async {
         userModel = left;
         //await Future.forEach(left.friends!, (value) async {

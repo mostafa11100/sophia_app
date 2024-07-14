@@ -25,8 +25,7 @@ class _CustomTextFormFeildState extends State<CustomTextFormFeild> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // color: Color.fromARGB(255, 233, 231, 231),
-      height: MediaQuery.of(context).size.height / 14,
+      height: MediaQuery.of(context).size.height / 15,
       child: TextFormField(
         autovalidateMode: widget.autovalidateMode,
         obscureText: widget.obsc,
@@ -44,18 +43,21 @@ class _CustomTextFormFeildState extends State<CustomTextFormFeild> {
 
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
-              borderSide:
-                  const BorderSide(color: Color.fromARGB(255, 230, 226, 226))),
+              borderSide: const BorderSide(
+                color: const Color.fromARGB(255, 247, 244, 244),
+              )),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
-              borderSide:
-                  const BorderSide(color: Color.fromARGB(255, 230, 226, 226))),
+              borderSide: const BorderSide(
+                color: const Color.fromARGB(255, 247, 244, 244),
+              )),
           //  hoverColor: const Color.fromARGB(255, 243, 240, 240),
           filled: true,
+
           hintText: widget.hint,
           hintStyle: TextStyleConst.textstyle14
               .copyWith(color: const Color.fromARGB(255, 124, 123, 123)),
-          fillColor: const Color.fromARGB(255, 230, 226, 226),
+          fillColor: const Color.fromARGB(255, 247, 244, 244),
         ),
       ),
     );

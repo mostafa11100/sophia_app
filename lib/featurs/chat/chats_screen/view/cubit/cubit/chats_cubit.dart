@@ -15,50 +15,28 @@ part 'chats_state.dart';
 
 class ChatsCubit extends Cubit<ChatsState> {
   ChatsCubit({required this.getFromFireStore}) : super(ChatsInitial(null));
-  @override
+
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? stream1;
   bool closecubit = false;
   GetFromFireStore getFromFireStore;
   SharedPref? pref;
-  void getdata() async {
-    // emit(Chatsloading());
-
-    //اوسخ كود
-    // Either<StreamSubscription<List<UserAndChatModel>>, ExeptionsFirebase>?
-    //     result1 = await getFromFireStore.getdataandlisten(
-    //         uid1: "jTfN06KUljT13n8wK75mkwPakGm1");
-
-    // result1!.fold((left) {
-    //   left.onData((data) {
-    //     print("left = = = ${data.first.userModel!.name}");
-    //     emit(Chatssuccess(data));
-    //   });
-    // }, (right) {
-    //   print("eerroorr  ==  ${right.eror}");
-    //   emit(Chatfail(right.eror!));
-    // });
-
-    // stream1 = FirebaseFirestore.instance
-    //     .collection("chats")
-    //     .snapshots()
-    //     .listen((event) async {
+  void getdata(bool refresh) async {
+    if (!refresh) emit(Chatsloading());
     pref = SharedPref();
+    String uid = await pref!.getfromshared('uid');
 
-    var uid = await pref!.getfromshared('uid');
     Either<List<UserAndChatModel>, ExeptionsFirebase>? result =
-        await getFromFireStore.getdata(uid1: "jTfN06KUljT13n8wK75mkwPakGm1");
+        await getFromFireStore.getdata(uid1: uid);
 
     result!.fold((left) {
-      //     print("chat is done ${left[0].userModel!.uid}");
+      // print("chat is done ${left[0].chatModel!.message}");
       if (closecubit == false) {
-        print("close cubit ======= $closecubit");
         emit(ChatsInitial(left));
 
         emit(Chatssuccess(left));
       }
     }, (right) {
       if (closecubit == false) {
-        print("close cubit ======= $closecubit");
         emit(Chatfail(right.eror!));
       }
     });
@@ -70,7 +48,6 @@ class ChatsCubit extends Cubit<ChatsState> {
     if (stream1 != null) {
       stream1!.cancel();
     }
-    print("closssssssssed");
     closecubit = true;
     return super.close();
   }
